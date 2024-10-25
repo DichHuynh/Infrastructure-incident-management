@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tình hình sự cố hạ tầng</title>
+    <link rel="stylesheet" href="/home/css/issue.css">
+</head>
+<body>
+    header
+      .logo
+        img(src="/home/images/anhmau.jpg", alt="Logo")
+      div(class="first-contact")
+        .support
+          span Hỗ trợ trực tuyến 24/7: 
+            strong 1800 0036
+        h1 Tình hình sự cố hạ tầng
+    nav
+      ul
+        li
+            a(href="/") Trang chủ
+        li
+            a(href="/reportIssue") Báo cáo sự cố
+        li
+            a(href="/search") Tra cứu thông tin
+        li
+            a(href="/evaluate") Đánh giá cơ sở vật chất
+        li
+            a(href="/setAccount") Cài đặt tài khoản
+
+    <main>
+        <section class="situation-overview">
+            <h2>Danh sách sự cố hiện tại</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Vị trí sự cố</th>
+                        <th>Loại sự cố</th>
+                        <th>Thời gian báo cáo</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>123 Đường ABC, Phường 1</td>
+                        <td>Mất điện</td>
+                        <td>2024-10-24 10:00</td>
+                        <td>Đang xử lý</td>
+                        <td><button class="btn-view">Xem chi tiết</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>456 Đường XYZ, Quận 2</td>
+                        <td>Rò rỉ nước</td>
+                        <td>2024-10-24 09:30</td>
+                        <td>Đã xử lý</td>
+                        <td><button class="btn-view">Xem chi tiết</button></td>
+                    </tr>
+                    <!-- Thêm nhiều dòng sự cố nếu cần -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Công ty quản lý cơ sở hạ tầng</p>
+        <p>Liên hệ hỗ trợ: <strong>1800 0036</strong></p>
+    </footer>
+</body>
+</html>

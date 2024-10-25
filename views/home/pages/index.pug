@@ -1,0 +1,50 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Infrastructure Management
+        link(rel="stylesheet", href="/home/css/index.css")
+        
+    body
+        // Header Section
+        header
+            .logo
+                img(src="/home/images/anhmau.jpg", alt="Logo")
+            div(class="first-contact")
+                .support
+                    span Hỗ trợ trực tuyến 24/7: 
+                        strong 1800 0036
+                .auth
+                    a(href="/signIn") Đăng nhập
+                    |  |
+                    a(href="/signUp") Đăng ký
+
+        // Navigation Bar
+        nav
+            ul
+                li
+                    a(href="/") Trang chủ
+                li
+                    a(href="/reportIssue") Báo cáo sự cố
+                li
+                    a(href="/warehouse") Thiết bị bảo trì
+                li
+                    a(href="/evaluate") Đánh giá cơ sở vật chất
+                li
+                    a(href="/setAccount") Cài đặt tài khoản
+
+        // Main Section
+        main
+            h1 QUAN SÁT CƠ SỞ VẬT CHẤT
+            .cards
+                .card
+                    a(href="/issue")
+                        img(src="/home/images/anhmau.jpg", alt="Các sự cố trên thành phố")
+                        h2 Các sự cố gần đây trên thành phố
+                .card
+                    a(href="/calendar")
+                        img(src="/home/images/anhmau.jpg", alt="lịch sửa chữa")
+                        h2 Báo cáo lịch sửa chữa
+        footer Copyright by Nhom 16
+    script(src="/home/js/script.js")

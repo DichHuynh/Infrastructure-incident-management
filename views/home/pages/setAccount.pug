@@ -1,0 +1,122 @@
+doctype html
+html(lang="vi")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Thông tin tài khoản
+    link(rel="stylesheet", href="/home/css/setAccount.css")
+  body
+    header
+      .logo
+        img(src="/home/images/anhmau.jpg", alt="Logo")
+      div(class="first-contact")
+        .support
+          span Hỗ trợ trực tuyến 24/7: 
+            strong 1800 0036
+    nav
+      ul
+        li
+            a(href="/") Trang chủ
+        li
+            a(href="/reportIssue") Báo cáo sự cố
+        li
+            a(href="/search") Tra cứu thông tin
+        li
+            a(href="/evaluate") Đánh giá cơ sở vật chất
+        li
+            a(href="/setAccount") Cài đặt tài khoản
+    main
+      h1(class="mb-4") Chỉnh thông tin tài khoản 
+      form(
+        action=`/setAccount?_method=PUT`
+        method="POST"
+        id="form-edit-account"
+        )
+        div(class="form-group")
+          label(for="name") Họ tên
+          input(
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            value=technician .name 
+          )
+        div(class="form-group")
+          label(for="email") email
+          input(
+            type="text"
+            class="form-control"
+            id="email"
+            name="email"
+            value=technician.email
+          )
+        div(class="form-group")
+          label(for="current-password") Mật khẩu hiện tại
+          input(
+            type="password"
+            class="form-control"
+            id="current-password"
+            name="current-password"
+            placeholder="Nhập mật khẩu hiện tại"
+          )
+        div(class="form-group")
+          label(for="new-password") Mật khẩu mới
+          input(
+            type="password"
+            class="form-control"
+            id="new-password"
+            name="new-password"
+            placeholder="Nhập mật khẩu mới"
+          )
+        div(class="form-group")
+          label(for="confirm-password") Xác nhận mật khẩu mới
+          input(
+            type="password"
+            class="form-control"
+            id="confirm-password"
+            name="confirm-password"
+            placeholder="Nhập lại mật khẩu mới"
+          )
+        div(class="form-group")
+          label(for="address") Địa chỉ
+          input(
+            type="text"
+            class="form-control"
+            id="address"
+            name="address"
+            value=technician.address 
+          )
+        div(class="form-group")
+          label(for="avatar") Avatar 
+          input(
+            type="file"
+            class="form-control"
+            id="avatar"
+            name="avatar"
+            )
+        div(class="form-group form-check form-check-inline")
+          input(
+            class="form-check-input"
+            type="radio"
+            name="status"
+            id="statusActive"
+            value="active"
+            checked = (technician.status == "active"? true : false)
+          )
+          label(for="statusActive" class="form-check-label") hoạt động
+        div(class="form-group form-check form-check-inline")
+          input(
+            class="form-check-input"
+            type="radio"
+            name="status"
+            id="statusInActive"
+            value="inactive"
+            checked=(technician.status == "inactive"? true : false)
+          )
+          label(for="statusActive" class="form-check-label") Dừng hoạt động
+        div(class="form-group")
+          button(
+            type="submit"
+            class="btn btn-primary"
+          ) Cập nhật
+    footer Copyright by Nhom 16
