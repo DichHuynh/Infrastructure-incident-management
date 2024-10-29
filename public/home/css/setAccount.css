@@ -122,3 +122,8 @@ button.btn-primary:hover {
 input[type="radio"] {
   margin-top: 7px;
 }
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+}

@@ -1,40 +1,55 @@
-module.exports.index = (req, res)=>{
+const User = require("../../model/user.model");
+
+module.exports.index = async (req, res)=>{
+  const userId = req.params.id;
+  console.log(userId);
   res.render("home/pages/index.pug",{
-    title: "Home Page"
+    title: "Home Page",
+    userId: userId
   });
 }
-module.exports.signUp = (req, res) =>{
-  res.render("home/pages/signUp.pug",{
-    title: "Sign Up Page"
-  });
-};
-module.exports.signIn = (req, res)=>{
-  res.render("home/pages/signIn.pug",{
-    title: "Sign Up Page"
-  });
-}
-module.exports.reportIssue = (req, res) =>{
+
+module.exports.issue = (req, res) =>{
   res.render("home/pages/issue.pug",{
     title: "Report Issue Page"
   });
 };
-module.exports.search = (req, res)=>{
-  res.send("trang tra cứu thông tin");
+
+module.exports.reportIssue = (req, res) =>{
+  res.render("home/pages/reportIssue.pug",{
+    title: "Báo cáo sự cố"
+  });
+};
+
+module.exports.warehouse = (req, res)=>{
+  res.render("home/pages/warehouse.pug")
 }
 module.exports.evaluate = (req, res) =>{
-  res.send("Trang đánh giá dịch vụ");
+  res.render("home/pages/evaluate.pug")
 };
-const technician = {
-  name: "Nguyễn Văn A",
-  email: "Acong",
-  password: "12345",
-  address: "Hà Nội",
-  avatar: "avatar.png",
-  status: 'active'
-};
-module.exports.setAccount = (req, res) =>{
+
+// const user = {
+//   name: "Huynh Dich",
+//   email: "dichhuynh54@gmail.com",
+//   password: "12344",
+//   role: "tech_elec",
+//   address: "Hanoi",
+//   avatar: "avatar.png",
+//   status: "active"
+// }
+module.exports.setAccount = async (req, res) =>{
+  const userId = req.params.id;
+  
+  if (userId !== req.session.userId.toString()) {
+    return res.status(403).send({ message: "Unauthorized access" });
+  }
+
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).send({ message: "User not found" });
+  }
   res.render("home/pages/setAccount.pug",{
     title: "Trang thiết lập tài khoản",
-    technician: technician
+    user: user
   });
 };

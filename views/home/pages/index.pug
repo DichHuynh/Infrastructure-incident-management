@@ -11,28 +11,24 @@ html(lang="en")
         header
             .logo
                 img(src="/home/images/anhmau.jpg", alt="Logo")
+            h1 HỆ THỐNG QUẢN LÝ CƠ SỞ HẠ TẦNG
             div(class="first-contact")
                 .support
                     span Hỗ trợ trực tuyến 24/7: 
                         strong 1800 0036
-                .auth
-                    a(href="/signIn") Đăng nhập
-                    |  |
-                    a(href="/signUp") Đăng ký
-
         // Navigation Bar
         nav
             ul
                 li
-                    a(href="/") Trang chủ
+                    a(href=`/home/${userId}`) Trang chủ
                 li
-                    a(href="/reportIssue") Báo cáo sự cố
+                    a(href=`/home/${userId}/issue`) Báo cáo sự cố
                 li
-                    a(href="/warehouse") Thiết bị bảo trì
+                    a(href=`/home/${userId}/warehouse`) Thiết bị bảo trì
                 li
-                    a(href="/evaluate") Đánh giá cơ sở vật chất
+                    a(href=`/home/${userId}/evaluate`) Đánh giá cơ sở vật chất
                 li
-                    a(href="/setAccount") Cài đặt tài khoản
+                    a(href=`/home/${userId}/setAccount`) Cài đặt tài khoản
 
         // Main Section
         main

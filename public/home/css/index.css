@@ -12,6 +12,13 @@ header {
   border-bottom: 2px solid #ccc;
 }
 
+header h1{
+  display:flex;
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #0073e6;
+}
+
 footer{
   background-color: #0073e6;
   color: #ffffff;

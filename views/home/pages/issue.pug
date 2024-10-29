@@ -18,19 +18,25 @@
     nav
       ul
         li
-            a(href="/") Trang chủ
+            a(href="/home") Trang chủ
         li
-            a(href="/reportIssue") Báo cáo sự cố
+            a(href="/home/issue") Báo cáo sự cố
         li
-            a(href="/search") Tra cứu thông tin
+            a(href="/home/warehouse") Thiết bị bảo trì
         li
-            a(href="/evaluate") Đánh giá cơ sở vật chất
+            a(href="/home/evaluate") Đánh giá cơ sở vật chất
         li
-            a(href="/setAccount") Cài đặt tài khoản
+            a(href="/home/setAccount") Cài đặt tài khoản
 
     <main>
         <section class="situation-overview">
-            <h2>Danh sách sự cố hiện tại</h2>
+            .col-8 
+                <h2>Danh sách sự cố hiện tại</h2>
+            .col-4 
+                a(
+                    href = "/home/reportIssue"
+                    class = "btn btn-outline-success"
+                ) + Thêm mới
             <table>
                 <thead>
                     <tr>

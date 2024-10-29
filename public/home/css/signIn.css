@@ -64,6 +64,13 @@ input[type="checkbox"] {
   margin-right: 5px;
 }
 
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 10px;
+  display: block;
+}
+
 button {
   width: 100%;
   padding: 10px;

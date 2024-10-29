@@ -9,6 +9,7 @@ html(lang="vi")
     header
       .logo
         img(src="/home/images/anhmau.jpg", alt="Logo")
+      h1 HỆ THỐNG QUẢN LÝ CƠ SỞ HẠ TẦNG
       div(class="first-contact")
         .support
           span Hỗ trợ trực tuyến 24/7: 
@@ -16,15 +17,15 @@ html(lang="vi")
     nav
       ul
         li
-            a(href="/") Trang chủ
+            a(href="/home") Trang chủ
         li
-            a(href="/reportIssue") Báo cáo sự cố
+            a(href="/home/issue") Báo cáo sự cố
         li
-            a(href="/search") Tra cứu thông tin
+            a(href="/home/warehouse") Thiết bị bảo trì
         li
-            a(href="/evaluate") Đánh giá cơ sở vật chất
+            a(href="/home/evaluate") Đánh giá cơ sở vật chất
         li
-            a(href="/setAccount") Cài đặt tài khoản
+            a(href="/home/setAccount") Cài đặt tài khoản
     main
       h1(class="mb-4") Chỉnh thông tin tài khoản 
       form(
@@ -39,7 +40,7 @@ html(lang="vi")
             class="form-control"
             id="name"
             name="name"
-            value=technician .name 
+            value=user.name 
           )
         div(class="form-group")
           label(for="email") email
@@ -48,7 +49,7 @@ html(lang="vi")
             class="form-control"
             id="email"
             name="email"
-            value=technician.email
+            value=user.email
           )
         div(class="form-group")
           label(for="current-password") Mật khẩu hiện tại
@@ -77,6 +78,7 @@ html(lang="vi")
             name="confirm-password"
             placeholder="Nhập lại mật khẩu mới"
           )
+          span(id="password-error" class="error-message")
         div(class="form-group")
           label(for="address") Địa chỉ
           input(
@@ -84,7 +86,7 @@ html(lang="vi")
             class="form-control"
             id="address"
             name="address"
-            value=technician.address 
+            value=user.address 
           )
         div(class="form-group")
           label(for="avatar") Avatar 
@@ -101,7 +103,7 @@ html(lang="vi")
             name="status"
             id="statusActive"
             value="active"
-            checked = (technician.status == "active"? true : false)
+            checked = (user.status == "active"? true : false)
           )
           label(for="statusActive" class="form-check-label") hoạt động
         div(class="form-group form-check form-check-inline")
@@ -111,7 +113,7 @@ html(lang="vi")
             name="status"
             id="statusInActive"
             value="inactive"
-            checked=(technician.status == "inactive"? true : false)
+            checked=(user.status == "inactive"? true : false)
           )
           label(for="statusActive" class="form-check-label") Dừng hoạt động
         div(class="form-group")
@@ -120,3 +122,4 @@ html(lang="vi")
             class="btn btn-primary"
           ) Cập nhật
     footer Copyright by Nhom 16
+  script(src="/home/js/setAccount.js" )
