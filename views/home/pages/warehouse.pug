@@ -17,13 +17,13 @@ html(lang="vi")
     nav
       ul
         li
-            a(href="/home") Trang chủ
+            a(href=`/user/home/${userId}`) Trang chủ
         li
-            a(href="/home/issue") Báo cáo sự cố
+            a(href=`/user/home/${userId}/issue`) Báo cáo sự cố
         li
-            a(href="/home/warehouse") Thiết bị bảo trì
+            a(href=`/user/home/${userId}/warehouse`) Thiết bị bảo trì
         li
-            a(href="/home/evaluate") Đánh giá cơ sở vật chất
+            a(href=`/user/home/${userId}/evaluate`) Đánh giá cơ sở vật chất
         li
-            a(href="/home/setAccount") Cài đặt tài khoản
+            a(href=`/user/home/${userId}/setAccount`) Cài đặt tài khoản
     main

@@ -4,7 +4,8 @@ html(lang="vi")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Thông tin tài khoản
-    link(rel="stylesheet", href="/home/css/index.css")
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/home/css/reportIssue.css")
   body
     header
       .logo
@@ -17,13 +18,67 @@ html(lang="vi")
     nav
       ul
         li
-            a(href="/home") Trang chủ
+            a(href=`/user/home/${userId}`) Trang chủ
         li
-            a(href="/home/issue") Báo cáo sự cố
+            a(href=`/user/home/${userId}/issue`) Báo cáo sự cố
         li
-            a(href="/home/warehouse") Thiết bị bảo trì
+            a(href=`/user/home/${userId}/warehouse`) Thiết bị bảo trì
         li
-            a(href="/home/evaluate") Đánh giá cơ sở vật chất
+            a(href=`/user/home/${userId}/evaluate`) Đánh giá cơ sở vật chất
         li
-            a(href="/home/setAccount") Cài đặt tài khoản
+            a(href=`/user/home/${userId}/setAccount`) Cài đặt tài khoản
     main
+      h1(class="mb-4") Báo cáo sự cố mới 
+
+      form(
+        action=`/user/home/${userId}/reportIssue`
+        method="post"
+        enctype="multipart/form-data"
+      )
+        .form-group
+          label(for="name") Tên sự cố
+          input(
+            type="text",
+            id="name",
+            name="name", 
+            class="form-control", 
+            placeholder="Vd: hỏng đèn, hỏng nắp cống,..."
+          )
+
+        .form-group
+          label(for="description") Mô tả sự cố 
+          textarea(
+            id="description",
+            name="description", 
+            class="form-control", 
+            rows="5", 
+            placeholder="Vd: Đèn đường bị nhấp nháy ảnh hưởng đến giao thông"
+          )
+
+        .form-group
+          label(for="location") Vị trí sự cố
+          input(
+            type="text",
+            id="location",
+            name="location", 
+            class="form-control", 
+            placeholder="Vd: Đường Nguyễn Văn Linh, Thanh Khê"
+          )
+
+        .form-group
+          label(for="image") Tải lên hình ảnh
+          input(
+            type="file",
+            id="image",
+            name="image", 
+            class="form-control"
+          )
+
+        .form-group
+          button(
+            type="submit",
+            class="btn btn-primary"
+          ) Báo cáo
+    footer 
+      p Liên hệ Liên hệ hỗ trợ: <strong>1800 0036</strong>
+      p Copyright by Nhom 16

@@ -17,15 +17,15 @@ html(lang="vi")
     nav
       ul
         li
-            a(href="/home") Trang chủ
+            a(href=`/user/home/${userId}`) Trang chủ
         li
-            a(href="/home/issue") Báo cáo sự cố
+            a(href=`/user/home/${userId}/issue`) Báo cáo sự cố
         li
-            a(href="/home/warehouse") Thiết bị bảo trì
+            a(href=`/user/home/${userId}/warehouse`) Thiết bị bảo trì
         li
-            a(href="/home/evaluate") Đánh giá cơ sở vật chất
+            a(href=`/user/home/${userId}/evaluate`) Đánh giá cơ sở vật chất
         li
-            a(href="/home/setAccount") Cài đặt tài khoản
+            a(href=`/user/home/${userId}/setAccount`) Cài đặt tài khoản
     main
       h1(class="mb-4") Chỉnh thông tin tài khoản 
       form(
@@ -49,7 +49,7 @@ html(lang="vi")
             class="form-control"
             id="email"
             name="email"
-            value=user.email
+            value=user.Account.email
           )
         div(class="form-group")
           label(for="current-password") Mật khẩu hiện tại
@@ -103,7 +103,7 @@ html(lang="vi")
             name="status"
             id="statusActive"
             value="active"
-            checked = (user.status == "active"? true : false)
+            checked = (user.Account.status == "Active"? true : false)
           )
           label(for="statusActive" class="form-check-label") hoạt động
         div(class="form-group form-check form-check-inline")
@@ -113,7 +113,7 @@ html(lang="vi")
             name="status"
             id="statusInActive"
             value="inactive"
-            checked=(user.status == "inactive"? true : false)
+            checked=(user.Account.status == "Inactive"? true : false)
           )
           label(for="statusActive" class="form-check-label") Dừng hoạt động
         div(class="form-group")

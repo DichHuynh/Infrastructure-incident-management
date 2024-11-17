@@ -1,79 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tình hình sự cố hạ tầng</title>
-    <link rel="stylesheet" href="/home/css/issue.css">
-</head>
-<body>
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Infrastructure Management
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/home/css/issue.css")
+        
+  body
+    // Header Section
     header
       .logo
         img(src="/home/images/anhmau.jpg", alt="Logo")
+      h1 HỆ THỐNG QUẢN LÝ CƠ SỞ HẠ TẦNG
       div(class="first-contact")
         .support
           span Hỗ trợ trực tuyến 24/7: 
             strong 1800 0036
-        h1 Tình hình sự cố hạ tầng
+
+    // Navigation Bar
     nav
       ul
         li
-            a(href="/home") Trang chủ
+          a(href=`/user/home/${userId}`) Trang chủ
         li
-            a(href="/home/issue") Báo cáo sự cố
+          a(href=`/user/home/${userId}/issue`) Báo cáo sự cố
         li
-            a(href="/home/warehouse") Thiết bị bảo trì
+          a(href=`/user/home/${userId}/warehouse`) Thiết bị bảo trì
         li
-            a(href="/home/evaluate") Đánh giá cơ sở vật chất
+          a(href=`/user/home/${userId}/evaluate`) Đánh giá cơ sở vật chất
         li
-            a(href="/home/setAccount") Cài đặt tài khoản
+          a(href=`/user/home/${userId}/setAccount`) Cài đặt tài khoản
 
-    <main>
-        <section class="situation-overview">
-            .col-8 
-                <h2>Danh sách sự cố hiện tại</h2>
-            .col-4 
-                a(
-                    href = "/home/reportIssue"
-                    class = "btn btn-outline-success"
-                ) + Thêm mới
-            <table>
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Vị trí sự cố</th>
-                        <th>Loại sự cố</th>
-                        <th>Thời gian báo cáo</th>
-                        <th>Trạng thái</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>123 Đường ABC, Phường 1</td>
-                        <td>Mất điện</td>
-                        <td>2024-10-24 10:00</td>
-                        <td>Đang xử lý</td>
-                        <td><button class="btn-view">Xem chi tiết</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>456 Đường XYZ, Quận 2</td>
-                        <td>Rò rỉ nước</td>
-                        <td>2024-10-24 09:30</td>
-                        <td>Đã xử lý</td>
-                        <td><button class="btn-view">Xem chi tiết</button></td>
-                    </tr>
-                    <!-- Thêm nhiều dòng sự cố nếu cần -->
-                </tbody>
-            </table>
-        </section>
-    </main>
+    main
+      section(class="situation-overview")
+        .col-8 
+          h2 Danh sách sự cố hiện tại
+        .col-4 
+          a(
+            href=`/user/home/${userId}/reportIssue`
+            class="btn btn-outline-success"
+          ) + Thêm mới
+        table(class="table table-striped table-bordered")
+          thead
+            tr
+              th Mã vấn đề
+              th Vị trí sự cố
+              th Loại sự cố
+              th Thời gian báo cáo
+              th Trạng thái
+              th Người đảm nhận
+              th Hành động
+          tbody
+            each item in issue
+              tr
+                td #{item.issue_id}
+                td #{item.location}
+                td #{item.description}
+                td #{item.report_date}
+                td #{item.status}
+                td #{item.technician_id || 'Chưa có'}
+                td 
+                  button.btn.btn-primary.view-detail(
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#issueDetailModal"
+                    data-issue-id=`${item.issue_id}`
+                    data-user-id=`${userId}`
+                  ) Xem chi tiết
 
-    <footer>
-        <p>&copy; 2024 Công ty quản lý cơ sở hạ tầng</p>
-        <p>Liên hệ hỗ trợ: <strong>1800 0036</strong></p>
-    </footer>
-</body>
-</html>
+      // Modal for Issue Details
+      .modal.fade#issueDetailModal(tabindex="-1", role="dialog")
+        .modal-dialog(role="document")
+          .modal-content
+            .modal-header
+              h5.modal-title Thông tin chi tiết sự cố
+              button.close(type="button", data-dismiss="modal", aria-label="Close")
+                span(aria-hidden="true") ×
+            .modal-body
+              p 
+                strong Mã vấn đề: 
+                span#modalIssueId
+              p 
+                strong Vị trí: 
+                span#modalLocation
+              p 
+                strong Mô tả: 
+                span#modalDescription
+              p 
+                strong Hình ảnh:
+                img#modalImage(src="", alt="Hình ảnh sự cố", class="img-fluid")
+              p 
+                strong Ngày báo cáo: 
+                span#modalReportDate
+              p 
+                strong Trạng thái: 
+                span#modalStatus
+              p 
+                strong Người đảm nhận 
+                span#modalTech
+            .modal-footer
+              button.btn.btn-secondary(type="button", data-dismiss="modal") Đóng
+
+    footer
+      p &copy; 2024 Công ty quản lý cơ sở hạ tầng
+      p Liên hệ hỗ trợ: 
+        strong 1800 0036
+
+    script(src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js")
+    script(src="/home/js/issue.js")
