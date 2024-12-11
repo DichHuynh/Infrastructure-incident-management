@@ -1,0 +1,48 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Infrastructure Management
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/home/css/index.css")
+    block style
+        
+  body
+    // Header Section
+    header
+        .logo
+            img(src="/home/images/anhmau.jpg", alt="Logo")
+        h1 HỆ THỐNG QUẢN LÝ CƠ SỞ HẠ TẦNG
+        div(class="first-contact")
+            .support
+                span Hỗ trợ trực tuyến 24/7: 
+                    strong 1800 0036
+            button(
+                type= "button"
+                onclick="location.href='/signIn'"
+                ) Đăng xuất
+
+    // Navigation Bar
+    nav
+      ul
+        li
+          a(href=`/user/home/${userId}`) Trang chủ
+        li
+          a(href=`/user/home/${userId}/issue`) Báo cáo sự cố
+        li
+          a(href=`/user/home/${userId}/history`) Lịch sử báo cáo sự cố
+        li
+          a(href=`/user/home/${userId}/evaluate`) Đánh giá cơ sở vật chất
+        li
+          a(href=`/user/home/${userId}/setAccount`) Cài đặt tài khoản
+
+    block main 
+
+    footer
+      p &copy; 2024 Công ty quản lý cơ sở hạ tầng
+      p Liên hệ hỗ trợ: 
+        strong 1800 0036
+    
+  script(src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js")
+  script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js")

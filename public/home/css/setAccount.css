@@ -1,3 +1,4 @@
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
@@ -45,7 +46,7 @@ nav ul li a {
   font-weight: bold;
 }
 
-main {
+#form-edit-account {
   background-color: #fff;
   padding: 30px;
   border-radius: 10px;

@@ -1,0 +1,51 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Infrastructure Management
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
+    link(rel='stylesheet', href='/admin/css/index.css')
+    block style
+        
+  body
+    // Header Section
+    header
+      .logo
+        img(src="/home/images/anhmau.jpg", alt="Logo")
+      div(class="header-name")
+        h1 HỆ THỐNG QUẢN LÝ CƠ SỞ HẠ TẦNG
+        h2 Trang dành cho quản lý
+      div(class="first-contact")
+        .support
+          span Hỗ trợ trực tuyến 24/7: 
+            strong 1800 0036
+        button(
+              type= "button"
+              onclick="location.href='/signIn'"
+              ) Đăng xuất
+    // Navigation Bar
+    nav
+      ul
+        li
+          a(href=`/admin/home/${userId}`) Trang chủ
+        li.dropdown
+          a(href="#") Quản lý tài khoản
+          ul.dropdown-menu
+            li
+              a(href=`/admin/home/${userId}/manageUserAccounts`) Tài khoản người dùng
+            li
+              a(href=`/admin/home/${userId}/manageTechAccounts`) Tài khoản kỹ thuật
+        li
+          a(href=`/admin/home/${userId}/manageIssue`) Quản lý sự cố
+        li
+          a(href=`/admin/home/${userId}/manageTech`) Quản lý và phân công nhân sự
+        li
+          a(href=`/admin/home/${userId}/setAccount`) Cài đặt tài khoản
+
+    // Main Section
+    block main 
+    footer Copyright by Nhom 16
+
+  script(src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js")
+  script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js")

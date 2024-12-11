@@ -1,10 +1,68 @@
+
+//- doctype html
+//- html(lang="en")
+//-     head
+//-         meta(charset="UTF-8")
+//-         meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//-         title Infrastructure Management
+//-         link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
+//-         link(rel="stylesheet", href="/home/css/index.css")
+//-         link(rel="stylesheet", href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css")
+//-     body
+//-         header
+//-             .logo
+//-                 img(src="/home/images/anhmau.jpg", alt="Logo")
+//-             h1 HỆ THỐNG QUẢN LÝ CƠ SỞ HẠ TẦNG
+//-         nav
+//-             ul
+//-                 li
+//-                     a(href=`/user/home/${userId}`) Trang chủ
+//-                 li
+//-                     a(href=`/user/home/${userId}/issue`) Báo cáo sự cố
+//-                 li
+//-                     a(href=`/user/home/${userId}/warehouse`) Thiết bị bảo trì
+//-                 li
+//-                     a(href=`/user/home/${userId}/evaluate`) Đánh giá cơ sở vật chất
+//-                 li
+//-                     a(href=`/user/home/${userId}/setAccount`) Cài đặt tài khoản
+
+//-         main
+//-             h1 QUAN SÁT CƠ SỞ VẬT CHẤT
+//-             <div id="mapid"></div>
+
+//-         footer Copyright by Nhom 16
+
+//-     script(src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js")
+//-     script.
+//-         // Khởi tạo bản đồ sử dụng OpenStreetMap
+//-         var mymap = L.map('mapid').setView([16.0669077, 108.2137987], 19); // Đặt vị trí trung tâm
+        
+//-         // Thêm Tile Layer từ OpenStreetMap
+//-         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//-             attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+//-             maxZoom: 19
+//-         }).addTo(mymap);
+
+//-         // Lặp qua danh sách sự cố và thêm marker cho mỗi sự cố
+//-         var issues = !{JSON.stringify(issues)}; // Lấy dữ liệu sự cố từ backend
+//-         issues.forEach(function(issue) {
+//-             // Thêm marker cho mỗi sự cố
+//-             var marker = L.marker([issue.latitude, issue.longitude]).addTo(mymap)
+//-                 .bindPopup(`
+//-                     <h3>Sự cố: ${issue.issue_id}</h3>
+//-                     <p><strong>Mô tả:</strong> ${issue.description}</p>
+//-                     <img src="${issue.image}" alt="Ảnh sự cố" style="width: 100px;"/>
+//-                 `);
+//-         });
 doctype html
 html(lang="en")
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Infrastructure Management
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
         link(rel="stylesheet", href="/home/css/index.css")
+        link(rel="stylesheet", href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css")
         
     body
         // Header Section
@@ -16,6 +74,10 @@ html(lang="en")
                 .support
                     span Hỗ trợ trực tuyến 24/7: 
                         strong 1800 0036
+                button(
+                    type="button"
+                    onclick="location.href='/signIn'"
+                ) Đăng xuất
         // Navigation Bar
         nav
             ul
@@ -24,7 +86,7 @@ html(lang="en")
                 li
                     a(href=`/user/home/${userId}/issue`) Báo cáo sự cố
                 li
-                    a(href=`/user/home/${userId}/warehouse`) Thiết bị bảo trì
+                    a(href=`/user/home/${userId}/history`) Lịch sử báo cáo sự cố
                 li
                     a(href=`/user/home/${userId}/evaluate`) Đánh giá cơ sở vật chất
                 li
@@ -33,14 +95,22 @@ html(lang="en")
         // Main Section
         main
             h1 QUAN SÁT CƠ SỞ VẬT CHẤT
-            .cards
-                .card
-                    a(href="/issue")
-                        img(src="/home/images/anhmau.jpg", alt="Các sự cố trên thành phố")
-                        h2 Các sự cố gần đây trên thành phố
-                .card
-                    a(href="/calendar")
-                        img(src="/home/images/anhmau.jpg", alt="lịch sửa chữa")
-                        h2 Báo cáo lịch sửa chữa
+            <div id="mapid"></div>
         footer Copyright by Nhom 16
     script(src="/home/js/script.js")
+    script(src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js")
+    script.
+        // Khởi tạo bản đồ sử dụng OpenStreetMap
+        var mymap = L.map('mapid').setView([16.0669077, 108.2137987], 19); // Đặt vị trí trung tâm
+        
+        // Thêm Tile Layer từ OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(mymap);
+
+        // Thêm Marker tại vị trí trung tâm
+        L.marker([16.0669077, 108.2137987]).addTo(mymap)
+            .bindPopup('Đây là vị trí trung tâm.')
+            .openPopup();
+

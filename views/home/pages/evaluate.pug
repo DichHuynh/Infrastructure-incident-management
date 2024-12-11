@@ -1,69 +1,42 @@
-doctype html
-html(lang="vi")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Thông tin tài khoản
-    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
-    link(rel="stylesheet", href="/home/css/evaluate.css")
-  body
-    header
-      .logo
-        img(src="/home/images/anhmau.jpg", alt="Logo")
-      h1 HỆ THỐNG QUẢN LÝ CƠ SỞ HẠ TẦNG
-      div(class="first-contact")
-        .support
-          span Hỗ trợ trực tuyến 24/7: 
-            strong 1800 0036
-    nav
-      ul
-        li
-            a(href=`/user/home/${userId}`) Trang chủ
-        li
-            a(href=`/user/home/${userId}/issue`) Báo cáo sự cố
-        li
-            a(href=`/user/home/${userId}/warehouse`) Thiết bị bảo trì
-        li
-            a(href=`/user/home/${userId}/evaluate`) Đánh giá cơ sở vật chất
-        li
-            a(href=`/user/home/${userId}/setAccount`) Cài đặt tài khoản
-    main
-      section(class="facilities")
-        .card-header Cơ sở vật chất
-        .card-body
-          .col-4
-            a(
-              href=`/user/home/${userId}/evaluate`
-              class = "btn btn-outline-success"
-            ) + Thêm mới
-          table.table.table-striped.table-hover.table-bordered 
-            thead
-              tr
-                th Mã thiết bị
-                th Tên thiết bị
-                th Loại thiết bị
-                th Vị trí
-                th Số lượng
-                th Trạng thái
-                th Ngày lắp đặt 
-                th Ngày bảo trì
-                th Ngày kiểm tra cuối 
-                th Lưu ý
-            tbody 
-              each equipment in infrastructure 
-                tr
-                  td #{equipment.infrastructure_id}
-                  td #{equipment.name}
-                  td #{equipment.type}
-                  td #{equipment.location}
-                  td #{equipment.quantity}
-                  td #{equipment.status}
-                  td #{equipment.installation_date}
-                  td #{equipment.last_maintenance_date}
-                  td #{equipment.last_inspection_date}
-                  td #{equipment.notes}
-    footer 
-      p Liên hệ Liên hệ hỗ trợ: <strong>1800 0036</strong>
-      p Copyright by Nhom 16
+extends ../layouts/default.pug
+
+block style 
+  link(rel="stylesheet", href="/home/css/evaluate.css")
+  
+block main
+  section(class="facilities")
+    .card-header Cơ sở vật chất
+    .card-body
+      .col-4
+        a(
+          href=`/user/home/${userId}/evaluate`
+          class = "btn btn-outline-success"
+        ) + Thêm mới
+      table.table.table-striped.table-hover.table-bordered 
+        thead
+          tr
+            th Mã thiết bị
+            th Tên thiết bị
+            th Loại thiết bị
+            th Vị trí
+            th Số lượng
+            th Trạng thái
+            th Ngày lắp đặt 
+            th Ngày bảo trì
+            th Ngày kiểm tra cuối 
+            th Lưu ý
+        tbody 
+          each equipment in infrastructure 
+            tr
+              td #{equipment.infrastructure_id}
+              td #{equipment.name}
+              td #{equipment.type}
+              td #{equipment.location}
+              td #{equipment.quantity}
+              td #{equipment.status}
+              td #{equipment.installation_date}
+              td #{equipment.last_maintenance_date}
+              td #{equipment.last_inspection_date}
+              td #{equipment.notes}
 
     

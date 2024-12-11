@@ -1,0 +1,58 @@
+#form-create-tech {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signup-container h2 {
+  margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+  color: #333;
+  text-align:center; /* Màu chữ tiêu đề */
+}
+
+.form-group {
+  margin-bottom: 15px; /* Khoảng cách giữa các ô nhập liệu */
+}
+
+label {
+  display: block; /* Đưa nhãn lên trên input */
+  margin-bottom: 5px; /* Khoảng cách dưới nhãn */
+  font-weight: bold;
+  color: #555; /* Màu chữ nhãn */
+}
+
+input,
+select {
+  width: 100%; /* Chiều rộng đầy đủ */
+  padding: 10px; /* Khoảng cách bên trong ô */
+  font-size: 14px; /* Kích thước chữ */
+  border: 1px solid #ccc; /* Viền ô nhập liệu */
+  border-radius: 4px; /* Bo góc */
+  box-sizing: border-box; /* Tính cả padding trong width */
+}
+
+input:focus,
+select:focus {
+  border-color: #007bff; /* Đổi màu viền khi focus */
+  outline: none; /* Bỏ viền mặc định */
+}
+
+button {
+  width: 100%; /* Nút rộng đầy đủ */
+  padding: 10px; /* Khoảng cách bên trong */
+  background-color: #007bff; /* Màu nền nút */
+  color: #fff; /* Màu chữ */
+  border: none; /* Bỏ viền */
+  border-radius: 4px; /* Bo góc */
+  cursor: pointer; /* Hiệu ứng con trỏ */
+  font-size: 16px; /* Kích thước chữ */
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #0056b3; /* Đổi màu khi hover */
+}
+

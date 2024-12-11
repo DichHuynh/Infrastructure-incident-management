@@ -12,14 +12,25 @@ module.exports.index = async (req, res) => {
 }
 
 module.exports.issue = async (req, res) => {
-  const accountId = req.params.id;
-  const issues = await Issue.findAll();
-  res.render("home/pages/issue.pug", {
-    title: "Report Issue Page",
-    userId: accountId,
-    issue: issues
-  });
+  try {
+    const accountId = req.params.id;
+
+    // Chỉ lấy các cột cần thiết
+    const issues = await Issue.findAll({
+      attributes: ["issue_id", "description", "location", "latitude", "longitude", "status"],
+    });
+
+    res.render("home/pages/issue.pug", {
+      title: "Report Issue Page",
+      userId: accountId,
+      issue: issues,
+    });
+  } catch (error) {
+    console.error("Error fetching issues:", error);
+    res.status(500).send("Error fetching issues");
+  }
 };
+
 
 module.exports.issueDetail = async (req, res) => {
   const { issueId } = req.params; // Lấy ID của sự cố từ params
@@ -80,7 +91,7 @@ module.exports.reportIssuePost = async (req, res) => {
   return res.redirect(`/user/home/${accountId}/issue`);
 }
 
-module.exports.warehouse = (req, res) => {
+module.exports.history = (req, res) => {
   const accountId = req.params.id;
   res.render("home/pages/warehouse.pug", {
     title: "Warehouse Page",

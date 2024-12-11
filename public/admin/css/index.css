@@ -17,11 +17,21 @@ header {
   height: 100px;
 }
 
-header h1{
-  display:flex;
+.header-name{
+  text-align: center; /* Căn giữa nội dung theo chiều ngang */
+  display: flex; /* Kích hoạt flexbox */
+  flex-direction: column; /* Đặt các phần tử theo chiều dọc */
+  justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+  align-items: center;
+}
+header .header-name h1{
   font-size: 26px;
   margin-bottom: 20px;
   color: #0073e6;
+}
+header .header-name h2{
+  font-size: 20px;
+  color:#0073e6bd;
 }
 
 header button {
@@ -76,6 +86,41 @@ nav ul li a {
   text-decoration: none;
   font-weight: bold;
 }
+/* Dropdown */
+.dropdown-menu {
+  list-style: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: none; /* Ẩn mặc định */
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu li a {
+  font-size: 14px;
+  display:inline-block;
+  padding: 0.5rem 0.2rem;
+  color: #333;
+}
+
+.dropdown-menu li a:hover {
+  background: #f8f9fa; /* Nền khi di chuột */
+  color: #007bff;
+}
+
+/* Hiển thị dropdown khi di chuột */
+.dropdown:hover .dropdown-menu {
+  display:inline;
+}
 
 main {
   padding: 20px;
@@ -84,12 +129,6 @@ main {
 h1 {
   font-size: 24px;
   margin-bottom: 20px;
-}
-#mapid {
-  height: 400px;
-  width: 90%;
-  border: 1px solid black;
-  margin: 20px 0px;
 }
 
 .cards {

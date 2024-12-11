@@ -92,3 +92,27 @@ try {
   return res.status(500).send({ message: "Lỗi server" });
 }
 };
+
+module.exports.validationPassword = async (req, res) => {
+  try {
+    const { currentPassword } = req.body;
+    const userId = req.params.id; // Lấy ID người dùng từ session hoặc token
+
+    // Tìm tài khoản trong cơ sở dữ liệu
+    const account = await Account.findOne({ where: { id: userId } });
+
+    if (!account) {
+      return res.status(404).json({ isValid: false, message: "User not found" });
+    }
+
+    // So sánh mật khẩu cũ
+    if (currentPassword === account.password) {
+      return res.status(200).json({ isValid: true });
+    } else {
+      return res.status(400).json({ isValid: false, message: "Incorrect password" });
+    }
+  } catch (error) {
+    console.error("Error validating password:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

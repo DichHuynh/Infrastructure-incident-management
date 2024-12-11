@@ -74,6 +74,14 @@ const Issue = sequelize.define('Issue', {
   notes: {
     type: DataTypes.TEXT,
   },
+  latitude: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  },
+  longitude: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  },
 }, {
   tableName: 'Issue',
   timestamps: false,

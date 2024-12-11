@@ -22,4 +22,6 @@ router.post("/signUp",
   middleware.uploadFile, 
   homeFirst.signUpPost);
 
+router.post("/api/validation-password", homeFirst.validationPassword);
+
 module.exports = router;

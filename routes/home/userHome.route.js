@@ -22,7 +22,7 @@ router.post("/:id/reportIssue",
   upload.single("image"),
   middleware.uploadFile,
   controller.reportIssuePost);
-router.get("/:id/warehouse", controller.warehouse);
+router.get("/:id/history", controller.history);
 router.get("/:id/evaluate", controller.evaluate);
 router.get("/:id/setAccount", controller.setAccount);
 

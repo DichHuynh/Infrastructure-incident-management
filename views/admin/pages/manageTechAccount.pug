@@ -1,0 +1,40 @@
+extends ../layouts/default.pug 
+
+block main 
+  h1 Thông tin kỹ thuật viên 
+  a(
+    href=`/admin/home/${userId}/createTech`
+    class="btn btn-outline-success"
+    ) + Tạo mới tài khoản kỹ thuật
+  .container.mt-4
+    .row.g-3
+      each user in listTech
+        .col-md-6.d-flex
+          .card.mb-4.shadow-sm.w-100
+            .d-flex.justify-content-center
+              img.card-img-top.img-fluid(
+                src=(user.Account.avatar && user.Account.avatar.trim() !== "") ? user.Account.avatar : "/home/images/avatar.png"
+                style="height: 150px; width: 150px; object-fit: cover; border-radius: 50%;"
+              )
+            .card-body
+              h5.card-title.text-center #{user.name}
+              p.card-text
+                strong Mã số nhân viên:
+                | #{user.technician_id}
+              p.card-text
+                strong Số điện thoại:
+                | #{user.phonenumber}
+              p.card-text
+                strong Email:
+                | #{user.Account.email}
+              p.card-text
+                strong Chuyên môn:
+                | #{user.expertise}
+              p.card-text
+                strong Ngày ký hợp đồng:
+                | #{user.employment_date}
+              p.card-text
+                strong Trạng thái tài khoản:
+                | #{user.Account.status}
+              a.btn.btn-primary.btn-sm(href=`/technician/${user.technician_id}`) Chi tiết
+              a.btn.btn-danger.btn-sm(href=`/technician/${user.technician_id}/delete`) Xóa

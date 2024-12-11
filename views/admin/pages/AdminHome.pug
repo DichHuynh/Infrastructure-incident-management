@@ -1,0 +1,17 @@
+extends ../layouts/default.pug
+
+block style
+
+block main
+  h1 QUAN SÁT CƠ SỞ VẬT CHẤT
+  .cards
+    .card
+      a(href="/issue")
+        img(src="/home/images/anhmau.jpg", alt="Các sự cố trên thành phố")
+        h2 Các sự cố gần đây trên thành phố
+    .card
+      a(href="/calendar")
+        img(src="/home/images/anhmau.jpg", alt="lịch sửa chữa")
+        h2 Báo cáo lịch sửa chữa
+
+  script(src="/home/js/script.js")
