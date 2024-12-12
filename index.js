@@ -2,6 +2,7 @@ const express = require("express");
 // const mongoose = require("mongoose");
 const session = require("express-session");
 const Sequelize = require("sequelize");
+const methodOverride = require('method-override');
 
 const sequelize = new Sequelize(
   "infrastructure_management",
@@ -34,6 +35,8 @@ const app = express();
 const port = 3000;
 
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+
 const route = require("./routes/home/index.route.js");
 
 app.set("views", `${__dirname}/views`);

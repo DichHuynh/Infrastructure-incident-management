@@ -15,8 +15,11 @@ cloudinary.config({
 
 router.get("/:id", controller.index);
 router.get("/:id/setAccount", controller.setAccount);
-router.get("/:id/manageTechAccounts", controller.manageTechAccount);
+
 router.get("/:id/manageUserAccounts", controller.manageUserAccount);
+router.patch("/:id/change-status/:status/:userId", controller.changeStatus);
+
+router.get("/:id/manageTechAccounts", controller.manageTechAccount);
 router.get("/:id/createTech", controller.createTech);
 router.post("/:id/createTech",
   upload.single("avatar"), 

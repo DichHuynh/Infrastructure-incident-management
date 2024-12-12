@@ -1,6 +1,7 @@
 const Account = require("../model/accounts.model.js");
 const Admin = require("../model/admin.model.js");
 const Tech = require("../model/tech.model.js");
+const User = require("../model/user.model.js");
 
 module.exports.index = async (req, res)=>{
   const userId = req.params.id;
@@ -29,11 +30,37 @@ module.exports.setAccount = async (req, res) => {
 
 module.exports.manageUserAccount = async (req, res) => {
   const accountId = req.params.id;
+  const listUser =  await User.findAll({
+    attributes: ["user_id", "name", "address"],
+    include: [
+      {
+        model: Account,
+        attributes: ['email', 'avatar', "password", "status"],
+      }
+    ]
+  })
   res.render("admin/pages/manageUserAccount.pug",{
     title: "Manage User Account",
-    userId: accountId
+    userId: accountId,
+    listUser: listUser
   });
 };
+
+module.exports.changeStatus = async (req, res) => {
+  const { userId, status } = req.params; // Lấy thông tin từ params
+  // Tìm người dùng trong bảng User
+  const user = await User.findOne({ where: { user_id: userId } });
+
+    // Sử dụng account_id để cập nhật trạng thái trong bảng Account
+  const [updatedRows] = await Account.update(
+    { status }, // Giá trị cần cập nhật
+    { where: { account_id: user.account_id } } // Điều kiện: account_id từ User
+  );
+
+  console.log("Rows updated:", updatedRows);
+  res.redirect("back");
+};
+
 
 module.exports.manageTechAccount = async (req, res) => {
   const accountId = req.params.id;
