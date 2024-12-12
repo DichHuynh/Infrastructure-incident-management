@@ -70,11 +70,14 @@ try {
   if (password !== account.password) {
     return res.status(400).send({ message: "Sai mật khẩu" });
   }
-
+  
   // Chuyển hướng về trang chủ sau khi đăng nhập thành công
   req.session.accountId = account.account_id; // Lưu ID người dùng vào session
   console.log(req.session.accountId);
   // res.redirect(`/home/${user.user_id}`);
+  if (account.status == "Inactive"){
+    return res.status(400).send({ message: "Tài khoản của bạn đã bị khóa"});
+  }
 
   switch (account.account_type) {
     case 'Admin':
