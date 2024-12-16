@@ -35,6 +35,43 @@ block main
                 | #{user.employment_date}
               p.card-text
                 strong Trạng thái tài khoản:
-                | #{user.Account.status}
+                if(user.Account.status == 'Active')
+                  a(
+                    href="javascript:"
+                    class="badge badge-success"
+                    data-status=user.Account.status 
+                    data-id=user.technician_id
+                    button-change-status
+                  ) Đang hoạt động
+                else
+                  a(
+                    href="javascript:"
+                    class="badge badge-danger"
+                    data-status=user.Account.status
+                    data-id=user.technician_id 
+                    button-change-status
+                  ) Dừng hoạt động
               a.btn.btn-primary.btn-sm(href=`/technician/${user.technician_id}`) Sửa
-              a.btn.btn-danger.btn-sm(href=`/technician/${user.technician_id}/delete`) Xóa
+              a.btn.btn-danger.btn-sm(
+                data-id=user.technician_id
+                data-accountId=user.Account.account_id
+                button-delete 
+                ) Xóa
+
+  //- form thay đổi trạng thái tài khoản
+  form(
+    action=""
+    method="POST"
+    id="form-change-status"
+    data-path=`/admin/home/${userId}/change-statusTech`
+  )
+
+  //- form xóa tài khoản
+  form(
+    action=""
+    method="POST"
+    id="form-delete-product"
+    data-path=`/admin/home/${userId}/deleteTech`
+  )
+
+  script(src="/admin/js/manageTech.js")

@@ -1,4 +1,3 @@
-
 // thay đổi trạng thái tài khoản
 const buttonsChangeStatus = document.querySelectorAll("[button-change-status]");
 if(buttonsChangeStatus.length> 0){
@@ -18,7 +17,6 @@ if(buttonsChangeStatus.length> 0){
 });
 }
 
-// xóa tài khoản
 const buttonDelete = document.querySelectorAll('[button-delete]');
 if(buttonDelete.length >0){
     const formDeleteItem = document.querySelector('#form-delete-product');
@@ -29,7 +27,7 @@ if(buttonDelete.length >0){
             const isConfirm = confirm("Do you want to delete this item?");
             if(isConfirm){
                 const id = button.getAttribute("data-id");
-                const accountId = button.getAttribute("data-accountId")
+                const accountId = button.getAttribute("data-accountId");
                 const action = `${path}/${id}/${accountId}?_method=DELETE`;
                 formDeleteItem.setAttribute("action", action);
                 formDeleteItem.submit();

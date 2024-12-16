@@ -42,7 +42,11 @@ block main
               ) Dừng hoạt động
           td
             a.btn.btn-primary.btn-sm(href="#") Sửa
-            a.btn.btn-danger.btn-sm(href="#") Xóa
+            a.btn.btn-danger.btn-sm(
+              data-id=user.user_id
+              data-accountId=user.Account.account_id
+              button-delete 
+            ) Xóa
 
   //- form thay đổi trạng thái tài khoản
   form(
@@ -50,6 +54,14 @@ block main
     method="POST"
     id="form-change-status"
     data-path=`/admin/home/${userId}/change-status`
+  )
+
+  //- form xóa tài khoản
+  form(
+    action=""
+    method="POST"
+    id="form-delete-product"
+    data-path=`/admin/home/${userId}/deleteUser`
   )
 
   script(src="/admin/js/manageUser.js")

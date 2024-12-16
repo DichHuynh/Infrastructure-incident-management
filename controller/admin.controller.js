@@ -35,7 +35,7 @@ module.exports.manageUserAccount = async (req, res) => {
     include: [
       {
         model: Account,
-        attributes: ['email', 'avatar', "password", "status"],
+        attributes: ['email', 'avatar', "password", "status", "account_id"],
       }
     ]
   })
@@ -44,6 +44,18 @@ module.exports.manageUserAccount = async (req, res) => {
     userId: accountId,
     listUser: listUser
   });
+};
+
+module.exports.deleteUser = async (req, res) => {
+  const { userId, accountId } = req.params;
+    // Xóa người dùng dựa trên user_id
+  await User.destroy({
+    where: { user_id: userId }
+  });
+  await Account.destroy({
+    where: { account_id: accountId }
+  });
+  res.redirect("back");
 };
 
 module.exports.changeStatus = async (req, res) => {
@@ -69,7 +81,7 @@ module.exports.manageTechAccount = async (req, res) => {
     include: [
       {
         model: Account,
-        attributes: ["avatar", "email", 'password',"status"], // Lấy trường avatar từ bảng Account
+        attributes: ["account_id", "avatar", "email", 'password',"status"], // Lấy trường avatar từ bảng Account
       },
     ],
   });
@@ -123,4 +135,30 @@ module.exports.createTechPost = async (req, res) =>{
   console.error("Error creating account or user:", error);
   return res.status(500).json({ message: "Internal server error" });
 }
+};
+
+module.exports.deleteTech = async (req, res) => {
+  const { userId, accountId } = req.params;
+  // Xóa người dùng dựa trên userId
+  await Tech.destroy({
+    where: { technician_id: userId }
+  });
+  await Account.destroy({
+    where: { account_id: accountId }
+  });
+  res.redirect("back");
+};
+
+module.exports.changeStatusTech = async (req, res) => {
+  const { userId, status } = req.params; // Lấy thông tin từ params
+  // Tìm người dùng trong bảng User
+  const user = await Tech.findOne({ where: { technician_id: userId } });
+    // Sử dụng account_id để cập nhật trạng thái trong bảng Account
+  const [updatedRows] = await Account.update(
+    { status }, // Giá trị cần cập nhật
+    { where: { account_id: user.account_id } } // Điều kiện: account_id từ User
+  );
+
+  console.log("Rows updated:", updatedRows);
+  res.redirect("back");
 };

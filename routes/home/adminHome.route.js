@@ -18,9 +18,12 @@ router.get("/:id/setAccount", controller.setAccount);
 
 router.get("/:id/manageUserAccounts", controller.manageUserAccount);
 router.patch("/:id/change-status/:status/:userId", controller.changeStatus);
+router.delete("/:id/deleteUser/:userId/:accountId",controller.deleteUser);
 
 router.get("/:id/manageTechAccounts", controller.manageTechAccount);
 router.get("/:id/createTech", controller.createTech);
+router.patch("/:id/change-statusTech/:status/:userId", controller.changeStatusTech);
+router.delete("/:id/deleteTech/:userId/:accountId", controller.deleteTech);
 router.post("/:id/createTech",
   upload.single("avatar"), 
   middleware.uploadFile,

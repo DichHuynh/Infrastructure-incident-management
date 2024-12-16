@@ -114,6 +114,14 @@ CREATE TABLE Issue (
     FOREIGN KEY (technician_id) REFERENCES TechnicianDetails(technician_id)
 );
 DELIMITER //
+ALTER TABLE Issue
+DROP FOREIGN KEY issue_ibfk_2; -- Xóa ràng buộc hiện tại
+
+ALTER TABLE Issue
+ADD CONSTRAINT issue_ibfk_2
+FOREIGN KEY (user_id) REFERENCES UserDetails(user_id)
+ON DELETE CASCADE; -- Thêm hành vi tự động xóa
+
 
 CREATE TRIGGER before_insert_Issue
 BEFORE INSERT ON Issue
