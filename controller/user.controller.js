@@ -40,7 +40,6 @@ module.exports.issueDetail = async (req, res) => {
     const issue = await Issue.findOne({
       where: { issue_id: issueId },
     });
-    console.log(issue);
 
     if (!issue) {
       return res.status(404).json({ error: "Sự cố không tồn tại!" });
