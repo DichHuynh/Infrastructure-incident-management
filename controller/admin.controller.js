@@ -107,7 +107,7 @@ module.exports.createTechPost = async (req, res) =>{
 
   try {
     const { avatar, name, email, password, numberphone, expertise, employment_date, address } = req.body;
-    const account_type = "Tech";
+    const account_type = "Technician";
 
     const existingAccount = await Account.findOne({ where: { email } });
     if (existingAccount) {
