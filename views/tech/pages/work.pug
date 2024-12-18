@@ -1,0 +1,19 @@
+extends ../layouts/default.pug 
+block style
+  link(rel="stylesheet", href="/tech/css/work.css")
+
+block main 
+  section.main
+    aside.sidebar
+      ul
+        li
+          a.active(href=`/tech/home/${userId}/work/assignedTask`) Nhiệm vụ được giao
+        li
+          a(href=`/tech/home/${userId}/work/history`) Lịch sử công việc
+        li
+          a(href=`/tech/home/${userId}/work/schedule`) Lịch trình công việc
+        li
+          a(href=`/tech/home/${userId}/work/leaveRequest`) Xin phép nghỉ
+    block body
+  
+  script(src="/tech/js/work.js")

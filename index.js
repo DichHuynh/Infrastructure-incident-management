@@ -36,6 +36,8 @@ const port = 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+//Sử dụng cho việc truy cập, gửi đi các API dạng json
+app.use(express.json());
 
 const route = require("./routes/home/index.route.js");
 
