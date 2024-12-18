@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo - Công ty Quản lý Hạ tầng Đô thị</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 10px 20px;
+            margin: 5px 0;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #495057;
+            color: #f8f9fa;
+        }
+
+        /* Main content styling */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        /* Section Header */
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        /* Cards and content */
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #495057;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 300px;
+        }
+
+        /* Buttons and exports */
+        .export-buttons button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3 class="text-center">Quản lý Hạ tầng</h3>
+        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="incident-management.html"><i class="fas fa-tools"></i> Quản lý sự cố</a>
+        <a href="project-tracking.html"><i class="fas fa-project-diagram"></i> Theo dõi dự án</a>
+        <a href="reports.html" class="active"><i class="fas fa-chart-line"></i> Báo cáo</a>
+        <a href="settings.html"><i class="fas fa-user-cog"></i> Cài đặt cá nhân</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Báo cáo và Thống kê</h1>
+
+        <!-- Báo cáo định kỳ -->
+        <div class="card">
+            <div class="card-header">Báo cáo định kỳ</div>
+            <div class="card-body">
+                <p>Thống kê số lượng sự cố theo tuần/tháng, phân tích nguyên nhân và hiệu quả xử lý.</p>
+                <div class="chart-container">
+                    <canvas id="reportChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Biểu đồ -->
+        <div class="card">
+            <div class="card-header">Biểu đồ và Đồ thị</div>
+            <div class="card-body">
+                <p>Biểu đồ cột, tròn hoặc đường về mức độ xử lý, loại sự cố phổ biến.</p>
+                <div class="chart-container">
+                    <canvas id="chartType"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Xuất báo cáo -->
+        <div class="card">
+            <div class="card-header">Xuất báo cáo</div>
+            <div class="card-body">
+                <p>Chọn định dạng để xuất báo cáo: PDF hoặc Excel.</p>
+                <div class="export-buttons">
+                    <button class="btn btn-primary"><i class="fas fa-file-pdf"></i> Xuất PDF</button>
+                    <button class="btn btn-success"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Biểu đồ báo cáo định kỳ
+        const ctxReport = document.getElementById('reportChart').getContext('2d');
+        new Chart(ctxReport, {
+            type: 'bar',
+            data: {
+                labels: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4'],
+                datasets: [{
+                    label: 'Số lượng sự cố',
+                    data: [12, 19, 7, 15],
+                    backgroundColor: '#495057'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
+                }
+            }
+        });
+
+        // Biểu đồ loại sự cố phổ biến
+        const ctxChart = document.getElementById('chartType').getContext('2d');
+        new Chart(ctxChart, {
+            type: 'pie',
+            data: {
+                labels: ['Sự cố điện', 'Sự cố nước', 'Giao thông', 'Vệ sinh công cộng'],
+                datasets: [{
+                    data: [10, 15, 7, 12],
+                    backgroundColor: ['#6c757d', '#adb5bd', '#ced4da', '#dee2e6']
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

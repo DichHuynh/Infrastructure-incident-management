@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sự cố</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .table {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background-color: #495057;
+            color: #fff;
+        }
+
+        .status-high {
+            background-color: #ffc107;
+            color: #343a40;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .status-medium {
+            background-color: #17a2b8;
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .status-low {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .form-section {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Quản lý sự cố</h1>
+    </div>
+
+    <div class="container">
+        <!-- Danh sách sự cố -->
+        <h2>Danh sách sự cố</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Mã số</th>
+                    <th>Loại sự cố</th>
+                    <th>Địa điểm</th>
+                    <th>Mức độ ưu tiên</th>
+                    <th>Thời gian phát sinh</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>Rò rỉ nước</td>
+                    <td>Đường chính</td>
+                    <td><span class="status-high">Cao</span></td>
+                    <td>10:00 AM</td>
+                    <td>Đang xử lý</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Hỏng đèn đường</td>
+                    <td>Phố nhỏ</td>
+                    <td><span class="status-medium">Trung bình</span></td>
+                    <td>11:30 AM</td>
+                    <td>Hoàn thành</td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>Chặn lối thoát nước</td>
+                    <td>Khu công nghiệp</td>
+                    <td><span class="status-low">Thấp</span></td>
+                    <td>1:00 PM</td>
+                    <td>Chưa xử lý</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Thêm báo cáo sự cố -->
+        <div class="form-section">
+            <h2>Thêm báo cáo sự cố</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="incident-type" class="form-label">Loại sự cố</label>
+                    <input type="text" class="form-control" id="incident-type" placeholder="Nhập loại sự cố">
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Địa điểm</label>
+                    <input type="text" class="form-control" id="location" placeholder="Nhập địa điểm">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Mô tả</label>
+                    <textarea class="form-control" id="description" rows="3" placeholder="Mô tả chi tiết"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image-upload" class="form-label">Tải lên hình ảnh</label>
+                    <input type="file" class="form-control" id="image-upload">
+                </div>
+                <button type="submit" class="btn btn-primary">Gửi yêu cầu xử lý</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

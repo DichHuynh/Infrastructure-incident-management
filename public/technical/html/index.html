@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý hạ tầng đô thị</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Thanh điều hướng -->
+    <div class="navbar">
+        <div class="logo">Hạ Tầng Đô Thị</div>
+        <div class="nav-links">
+            <a href="#" class="nav-link active" data-page="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a>
+            <a href="#" class="nav-link" data-page="sucok"><i class="fas fa-tools"></i> Quản lý sự cố</a>
+            <a href="#" class="nav-link" data-page="duan"><i class="fas fa-tasks"></i> Theo dõi dự án</a>
+            <a href="#" class="nav-link" data-page="baocao"><i class="fas fa-file-alt"></i> Báo cáo</a>
+            <a href="#" class="nav-link" data-page="caidat"><i class="fas fa-cog"></i> Cài đặt</a>
+        </div>
+    </div>
+
+    <!-- Nội dung các trang -->
+    <div class="content active" id="dashboard">
+        <h1>Dashboard</h1>
+        <p>Chào mừng bạn đến với trang tổng quan. Đây là nơi hiển thị các số liệu và bản đồ tổng quát.</p>
+    </div>
+    <div class="content" id="sucok">
+        <h1>Quản lý sự cố</h1>
+        <p>Trang quản lý sự cố. Tại đây bạn có thể xem, thêm mới và cập nhật trạng thái các sự cố.</p>
+    </div>
+    <div class="content" id="duan">
+        <h1>Theo dõi dự án</h1>
+        <p>Trang theo dõi dự án. Xem tiến độ và quản lý các dự án bảo trì.</p>
+    </div>
+    <div class="content" id="baocao">
+        <h1>Báo cáo & Thống kê</h1>
+        <p>Trang báo cáo và thống kê. Theo dõi hiệu suất xử lý sự cố qua các biểu đồ và dữ liệu.</p>
+    </div>
+    <div class="content" id="caidat">
+        <h1>Cài đặt</h1>
+        <p>Trang cài đặt cá nhân. Thay đổi thông tin, tùy chỉnh thông báo, và bảo mật tài khoản.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
