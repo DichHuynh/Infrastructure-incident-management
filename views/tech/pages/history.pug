@@ -1,4 +1,71 @@
 extends ./work.pug
 
-block body 
-  h1 Trang lịch sử công việc
+block body
+  .container.mt-5
+    h1.text-center.text-success.mb-4 Lịch sử công việc đã hoàn thành của #{technicianName}
+
+    if tasks.length > 0
+      table.table.table-striped.table-bordered
+        thead.thead-dark
+          tr
+            th Mã nhiệm vụ
+            th Mô tả
+            th Vị trí
+            th Ngày hoàn thành
+            th Ngày phản hồi
+            th Ảnh báo cáo
+            th Hành động
+        tbody
+          each task in tasks
+            tr
+              td #{task.issue_id}
+              td #{task.description || 'Không có mô tả'}
+              td #{task.location || 'Không có vị trí'}
+              td #{task.resolved_at || 'Không rõ'}
+              td #{task.response_date ? new Date(task.response_date).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) : 'Không rõ'}
+              td
+                if task.resolved_image
+                  img.img-thumbnail(src=task.resolved_image, alt="Ảnh báo cáo", width="100")
+                else
+                  span.text-secondary Không có ảnh
+              td
+                button.btn.btn-primary.btn-sm.mr-2(
+                  data-toggle="modal"
+                  data-target=`#editModal-${task.issue_id}`
+                ) Sửa
+                button.btn.btn-danger.btn-sm(
+                  data-task-id=task.issue_id
+                  button-delete
+                ) Xóa
+
+      // Modal sửa báo cáo
+      each task in tasks
+        div.modal.fade(id=`editModal-${task.issue_id}`, tabindex="-1", role="dialog")
+          div.modal-dialog(role="document")
+            div.modal-content
+              div.modal-header
+                h5.modal-title Sửa báo cáo sự cố
+                button.close(type="button", data-dismiss="modal", aria-label="Close")
+                  span(aria-hidden="true") &times;
+              div.modal-body
+                form(action=`/tasks/${task.issue_id}/edit`, method="POST", enctype="multipart/form-data")
+                  .form-group
+                    label(for="reportDescription") Nội dung báo cáo
+                    textarea.form-control#reportDescription(name="reportDescription", rows="3").required #{task.report_description}
+                  .form-group
+                    label(for="resolvedImage") Ảnh báo cáo mới (tùy chọn)
+                    input.form-control-file#resolvedImage(type="file" name="resolvedImage")
+                  button.btn.btn-primary.btn-block(type="submit") Cập nhật báo cáo
+
+    else
+      .alert.alert-warning.text-center.mt-4 Không có công việc nào đã hoàn thành!
+
+  form(
+    action=""
+    method="POST"
+    id="form-delete-task"
+    data-path=`/tech/home/${userId}/delete-task`
+  )
+
+  script(src="/tech/js/history.js")
+

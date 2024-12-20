@@ -82,6 +82,22 @@ const Issue = sequelize.define('Issue', {
     type: DataTypes.DOUBLE,
     allowNull: false,
   },
+  report_description: {
+    type: DataTypes.TEXT, // Đã thay đổi kiểu dữ liệu thành TEXT
+    allowNull: true, // Tùy chọn: có thể để null
+  },
+  resolved_at: {
+    type: DataTypes.DATE, // Đã thay đổi thành DATETIME
+    allowNull: true, // Tùy chọn: có thể để null
+  },
+  resolved_image: {
+    type: DataTypes.STRING(100), // Đã thay đổi cực đại thành 100 ký tự
+    allowNull: true, // Tùy chọn: có thể để null
+  },
+  response_date: {
+    type: DataTypes.DATE, // Đã thêm trường này với kiểu DATETIME
+    defaultValue: DataTypes.NOW, // Mặc định là thời điểm hiện tại
+  },
 }, {
   tableName: 'Issue',
   timestamps: false,

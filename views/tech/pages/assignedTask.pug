@@ -1,4 +1,82 @@
 extends ./work.pug
 
-block body 
-  h1 Trang giao nhiệm vụ
+block body
+  .container.mt-5
+    h1.text-center.text-primary.mb-4 Nhiệm vụ của #{technicianName}
+    if tasks.length > 0
+      table.table.table-striped.table-bordered
+        thead.thead-dark
+          tr
+            th Mã nhiệm vụ
+            th Mô tả
+            th Vị trí
+            th Trạng thái
+            th Ngày báo cáo
+            th Hành động
+        tbody
+          each task in tasks
+            tr
+              td #{task.issue_id}
+              td #{task.description || 'Không có mô tả'}
+              td #{task.location || 'Không có vị trí'}
+              td #{task.status || 'Chưa rõ'}
+              td #{task.report_date || 'Không rõ'}
+              td
+                if task.status === 'In Progress'
+                  button.btn.btn-success.btn-sm(
+                    onclick=`updateStatus('${task.issue_id}', 'Accepted')`
+                  ) Nhận việc
+                else if task.status === 'Accepted'
+                  button.btn.btn-primary.btn-sm(
+                    data-toggle="modal"
+                    data-target=`#reportModal-${task.issue_id}`
+                  ) Báo cáo
+                else
+                  span.text-secondary Không xác định
+
+      // Modal for reporting tasks
+      each task in tasks
+          if task.status === 'Accepted'
+            div.modal.fade(id=`reportModal-${task.issue_id}`, tabindex="-1", role="dialog")
+              div.modal-dialog(role="document")
+                div.modal-content
+                  div.modal-header
+                    h5.modal-title Báo cáo hoàn thành
+                    button.close(type="button", data-dismiss="modal", aria-label="Close")
+                      span(aria-hidden="true") &times;
+                  div.modal-body
+                    form(action=`/tech/home/assignedTask/${task.issue_id}/report`, 
+                      method="POST"
+                      enctype="multipart/form-data")
+                      .form-group
+                        label(for="report_description") Nội dung báo cáo
+                        textarea.form-control#reportDescription(name="report_description" rows="3").required
+                      .form-group
+                        label(for="resolved_image") Ảnh minh họa
+                        input.form-control-file#image(
+                          type="file"
+                          name="resolved_image").required
+                      .form-group
+                        label(for="resolved_at") Thời gian giải quyết
+                        input.form-control#resolvedAt(type="datetime-local" name="resolved_at").required
+                      button.btn.btn-primary.btn-block(type="submit") Gửi báo cáo
+    else
+      .alert.alert-warning.text-center.mt-4 Không có nhiệm vụ nào được giao!
+
+  script.
+    function updateStatus(issueId, newStatus) {
+      fetch(`/tech/home/assignedTask/${issueId}/update`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            window.location.reload();
+          } else {
+            alert('Cập nhật trạng thái thất bại!');
+          }
+        })
+        .catch(err => console.error('Error:', err));
+    }

@@ -122,6 +122,13 @@ ADD CONSTRAINT issue_ibfk_2
 FOREIGN KEY (user_id) REFERENCES UserDetails(user_id)
 ON DELETE CASCADE; -- Thêm hành vi tự động xóa
 
+ALTER TABLE Issue
+ADD COLUMN report_description TEXT,            -- Thêm trường mới cho mô tả báo cáo
+ADD COLUMN resolved_at DATETIME,               -- Thêm trường mới cho ngày giờ resolved
+ADD COLUMN resolved_image VARCHAR(100),        -- Thêm trường mới cho hình ảnh đã resolved
+ADD COLUMN response_date DATETIME DEFAULT CURRENT_TIMESTAMP;;  -- Thêm trường mới cho thời gian báo cáo
+
+
 
 CREATE TRIGGER before_insert_Issue
 BEFORE INSERT ON Issue
