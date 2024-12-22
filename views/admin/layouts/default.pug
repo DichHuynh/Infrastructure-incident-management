@@ -29,6 +29,10 @@ html(lang="en")
       ul
         li
           a(href=`/admin/home/${userId}`) Trang chủ
+        li
+          a(href=`/admin/home/${userId}/manageIssue`) Quản lý sự cố        
+        li
+          a(href=`/admin/home/${userId}/supervise`) Giám sát kỹ thuật viên     
         li.dropdown
           a(href="#") Quản lý tài khoản
           ul.dropdown-menu
@@ -36,10 +40,6 @@ html(lang="en")
               a(href=`/admin/home/${userId}/manageUserAccounts`) Tài khoản người dùng
             li
               a(href=`/admin/home/${userId}/manageTechAccounts`) Tài khoản kỹ thuật
-        li
-          a(href=`/admin/home/${userId}/manageIssue`) Quản lý sự cố
-        li
-          a(href=`/admin/home/${userId}/manageTech`) Quản lý và phân công nhân sự
         li
           a(href=`/admin/home/${userId}/setAccount`) Cài đặt tài khoản
 

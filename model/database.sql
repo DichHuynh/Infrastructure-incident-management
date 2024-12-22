@@ -127,9 +127,23 @@ ADD COLUMN report_description TEXT,            -- Thêm trường mới cho mô 
 ADD COLUMN resolved_at DATETIME,               -- Thêm trường mới cho ngày giờ resolved
 ADD COLUMN resolved_image VARCHAR(100),        -- Thêm trường mới cho hình ảnh đã resolved
 ADD COLUMN response_date DATETIME DEFAULT CURRENT_TIMESTAMP;;  -- Thêm trường mới cho thời gian báo cáo
+-- Thêm trường mới cho vĩ độ và kinh độ
+ALTER TABLE Issues
+ADD latitude FLOAT NULL,
+ADD longitude FLOAT NULL;
 
+ALTER TABLE Issues
+MODIFY COLUMN latitude FLOAT NULL,
+MODIFY COLUMN longitude FLOAT NULL;
 
+ALTER TABLE Issue
+ADD COLUMN time_evaluation ENUM('Rất tốt', 'Đạt', 'Chậm trễ') DEFAULT 'Đạt',  -- Thêm trường cho đánh giá thời gian
+ADD COLUMN quality_evaluation ENUM('Rất tốt', 'Tốt', 'Trung bình', 'Kém') DEFAULT 'Trung bình',  -- Thêm trường cho đánh giá chất lượng
+ADD COLUMN admin_comment TEXT;  -- Thêm trường cho ghi chú từ quản trị viên
 
+ALTER TABLE Issue
+DROP COLUMN resolution_date,  -- Xóa trường resolution_date
+DROP COLUMN notes;            -- Xóa trường notes
 CREATE TRIGGER before_insert_Issue
 BEFORE INSERT ON Issue
 FOR EACH ROW

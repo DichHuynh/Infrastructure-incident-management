@@ -61,7 +61,6 @@ module.exports.setAccount = async (req, res) => {
 
 module.exports.assignedTask = async (req, res) => {
   const accountId = req.params.id;
-  try {
       // Tìm technician dựa trên account_id
       const technician = await Tech.findOne({
           where: { account_id: accountId }
@@ -80,10 +79,6 @@ module.exports.assignedTask = async (req, res) => {
           technicianName: technician.name,
           userId: accountId
       });
-  } catch (error) {
-      console.error("Error in assignedTask:", error.message);
-      res.render('error', { message: "Lỗi server!" });
-  }
 };
 
 module.exports.updateTask = async (req, res) => {
@@ -100,10 +95,10 @@ module.exports.updateTask = async (req, res) => {
 module.exports.reportTask = async (req, res) => {
   const { issue_id } = req.params;
   const { report_description, resolved_image, resolved_at } = req.body;
-
+  const response_date = new Date();
     // Cập nhật bản ghi
     const [updatedRows] = await Issue.update(
-      { report_description, resolved_image, resolved_at, status: 'Resolved' },
+      { report_description, resolved_image, resolved_at, status: 'Resolved', response_date },
       { where: { issue_id } }
     );
     res.redirect('back');
@@ -121,7 +116,9 @@ module.exports.history = async (req, res) => {
         technician_id: technician.technician_id,
         status: 'Resolved' // Chỉ lấy công việc đã hoàn thành
       },
-      attributes: ['issue_id', 'description', 'location', 'resolved_at', 'response_date', 'report_description', 'resolved_image']
+      attributes: ['issue_id', 'description', 'location', 
+        'resolved_at', 'response_date', 'report_description', 'admin_comment',
+        'resolved_image', 'time_evaluation', 'quality_evaluation',]
     });
     console.log(completedTasks);
     res.render('tech/pages/history.pug', {

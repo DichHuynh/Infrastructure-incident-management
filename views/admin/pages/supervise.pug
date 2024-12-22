@@ -1,0 +1,117 @@
+extends ../layouts/default.pug 
+
+block main
+  section(class="situation-overview")
+    .card-header(style="font-size: 20px; font-weight: bold; margin-bottom: 10px;") Sự cố đã báo cáo
+    .card-body
+      table(class="table table-striped table-bordered")
+        thead.thead-dark
+          tr
+            th Mã vấn đề
+            th Vị trí sự cố
+            th Mô tả
+            th Thời gian báo cáo
+            th Người đảm nhận
+            th Thời gian xử lý
+            th Ảnh xử lý 
+            th Chi tiết xử lý
+            th Đánh giá
+            th Chi tiết đánh giá
+            th Hành động
+        tbody
+          each item in issue
+            tr
+              td #{item.issue_id}
+              td #{item.location}
+              td #{item.description}
+              td #{item.report_date}
+              //- td
+              //-   span.status-badge(style="background-color: #49d43d; color: #fff;")
+              //-     |#{item.status}
+              td #{item.technician_info}
+              td #{item.response_date ? new Date(item.response_date).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) : 'Không rõ'}
+              td
+                if item.resolved_image
+                  img.img-thumbnail(src=item.resolved_image, alt="Ảnh xử lý", width="200px", height="200px")
+                else
+                  span.text-secondary Không có ảnh
+              td #{item.report_description || 'Không có chi tiết báo cáo'}
+              td(style=`background-color: ${
+                item.quality_evaluation === 'Rất tốt' ? '#28a745' : 
+                item.quality_evaluation === 'Tốt' ? '#ffc107' : 
+                item.quality_evaluation === 'Trung bình' ? '#17a2b8' : 
+                item.quality_evaluation === 'Kém' ? '#dc3545' : 
+                'transparent'}; color: white;`) #{item.quality_evaluation || ''}
+              td(style=(item.admin_comment ? '' : 'color: red; font-weight: bold;')) #{item.admin_comment || 'Chưa đánh giá'}
+              td 
+                button.btn.btn-primary.view-detail(
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#superviseDetailModal"
+                  data-issue-id=`${item.issue_id}`
+                  data-user-id=`${userId}`
+                ) Chi tiết
+  
+  .modal.fade#superviseDetailModal(tabindex="-1", role="dialog")
+    .modal-dialog(role="document")
+      .modal-content
+        .modal-header
+          h5.modal-title Thông tin và Đánh giá sự cố
+          button.close(type="button", data-dismiss="modal", aria-label="Close")
+            span(aria-hidden="true") ×
+        .modal-body
+          //--- Thông tin sự cố
+          p 
+            strong Mã vấn đề: 
+            span#modalIssueId
+          p 
+            strong Vị trí: 
+            span#modalLocation
+          p 
+            strong Mô tả sự cố: 
+            span#modalDescription
+          p 
+            strong Ngày báo cáo: 
+            span#modalReportDate
+          p 
+            strong Ảnh sự cố: 
+            img#modalImageIssue(src="", alt="Hình ảnh sự cố", class="img-fluid")
+          p 
+            strong Ngày xử lý: 
+            span#modalResponseDate
+          p 
+            strong Hình ảnh khắc phục: 
+            img#modalImage(src="", alt="Hình ảnh khắc phục", class="img-fluid")
+          p 
+            strong Báo cáo khắc phục: 
+            span#modalReportDescription
+          p 
+            strong Trạng thái: 
+            span#modalStatus
+
+          hr
+          
+          //--- Đánh giá kỹ thuật viên
+          form#evaluationForm
+            p
+              strong Đánh giá thời gian xử lý:
+              select.form-control(name="timeEvaluation", id="timeEvaluation")
+                option(value="Rất tốt") Rất tốt
+                option(value="Đạt") Đạt
+                option(value="Chậm trễ") Chậm trễ
+            p
+              strong Chất lượng xử lý:
+              select.form-control(name="qualityEvaluation", id="qualityEvaluation")
+                option(value="Rất tốt") Rất tốt
+                option(value="Tốt") Tốt
+                option(value="Trung bình") Trung bình
+                option(value="Kém") Kém
+            p
+              strong Ghi chú: 
+              textarea.form-control(name="adminComments", id="adminComments", rows="3", placeholder="Nhập nhận xét hoặc ghi chú thêm...")
+              
+        .modal-footer
+          button.btn.btn-primary(type="submit", id="submitEvaluationButton") Gửi đánh giá
+          button.btn.btn-secondary(type="button", data-dismiss="modal") Đóng
+
+  script(src="/admin/js/supervise.js")

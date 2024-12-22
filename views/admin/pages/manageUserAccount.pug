@@ -1,52 +1,53 @@
 extends ../layouts/default.pug 
 
 block main 
-  h1 Thông tin người dùng trên hệ thống 
-    .container.mt-4
-  table.table.table-bordered.table-striped.table-hover
-    thead.thead-dark
-      tr
-        th Ảnh đại diện
-        th Họ tên
-        th Mã người dùng
-        th Email
-        th Trạng thái tài khoản
-        th Hành động
-    tbody
-      each user in listUser
+  .card-header(style="font-size: 20px; font-weight: bold; margin-bottom: 10px;") Thông tin người dùng trên hệ thống 
+  .card-body
+    table.table.table-bordered.table-striped.table-hover
+      thead.thead-dark
         tr
-          td
-            img.img-thumbnail(
-              src=(user.Account.avatar && user.Account.avatar.trim() !== "") ? user.Account.avatar : "/home/images/avatar.png"
-              style="width: 100px;"
-            )
-          td #{user.name}
-          td #{user.user_id}
-          td #{user.Account.email}
-          td 
-            if(user.Account.status == 'Active')
-              a(
-                href="javascript:"
-                class="badge badge-success"
-                data-status=user.Account.status 
+          th Ảnh đại diện
+          th Họ tên
+          th Mã người dùng
+          th Email
+          th Địa chỉ
+          th Trạng thái tài khoản
+          th Hành động
+      tbody
+        each user in listUser
+          tr
+            td
+              img.img-thumbnail(
+                src=(user.Account.avatar && user.Account.avatar.trim() !== "") ? user.Account.avatar : "/home/images/avatar.png"
+                style="width: 100px;"
+              )
+            td #{user.name}
+            td #{user.user_id}
+            td #{user.Account.email}
+            td #{user.address}
+            td 
+              if(user.Account.status == 'Active')
+                a(
+                  href="javascript:"
+                  class="badge badge-success"
+                  data-status=user.Account.status 
+                  data-id=user.user_id
+                  button-change-status
+                ) Đang hoạt động
+              else
+                a(
+                  href="javascript:"
+                  class="badge badge-danger"
+                  data-status=user.Account.status
+                  data-id=user.user_id 
+                  button-change-status
+                ) Dừng hoạt động
+            td
+              a.btn.btn-danger.btn-sm(
                 data-id=user.user_id
-                button-change-status
-              ) Đang hoạt động
-            else
-              a(
-                href="javascript:"
-                class="badge badge-danger"
-                data-status=user.Account.status
-                data-id=user.user_id 
-                button-change-status
-              ) Dừng hoạt động
-          td
-            a.btn.btn-primary.btn-sm(href="#") Sửa
-            a.btn.btn-danger.btn-sm(
-              data-id=user.user_id
-              data-accountId=user.Account.account_id
-              button-delete 
-            ) Xóa
+                data-accountId=user.Account.account_id
+                button-delete 
+              ) Xóa
 
   //- form thay đổi trạng thái tài khoản
   form(

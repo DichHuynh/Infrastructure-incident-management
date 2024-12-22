@@ -1,17 +1,24 @@
 extends ../layouts/default.pug
 
 block style
+  link(rel="stylesheet", href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css")
 
 block main
   h1 QUAN SÁT CƠ SỞ VẬT CHẤT
-  .cards
-    .card
-      a(href="/issue")
-        img(src="/home/images/anhmau.jpg", alt="Các sự cố trên thành phố")
-        h2 Các sự cố gần đây trên thành phố
-    .card
-      a(href="/calendar")
-        img(src="/home/images/anhmau.jpg", alt="lịch sửa chữa")
-        h2 Báo cáo lịch sửa chữa
+  <div id="mapid" style="height: 400px; width: 90%; border: 1px solid black; margin: 20px 20px;"></div>
+    
+  script(src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js")
+  script.
+      // Khởi tạo bản đồ sử dụng OpenStreetMap
+      var mymap = L.map('mapid').setView([16.0669077, 108.2137987], 19); // Đặt vị trí trung tâm
+      
+      // Thêm Tile Layer từ OpenStreetMap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 19
+      }).addTo(mymap);
 
-  script(src="/home/js/script.js")
+      // Thêm Marker tại vị trí trung tâm
+      L.marker([16.0669077, 108.2137987]).addTo(mymap)
+          .bindPopup('Đây là vị trí trung tâm.')
+          .openPopup();

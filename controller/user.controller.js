@@ -1,6 +1,7 @@
 const User = require("../model/user.model.js");
 const Infrastructure = require("../model/infrastructure.model.js");
 const Account = require("../model/accounts.model.js");
+const Tech = require("../model/tech.model.js");
 const Issue = require("../model/issue.model.js");
 
 module.exports.index = async (req, res) => {
@@ -15,36 +16,49 @@ module.exports.issue = async (req, res) => {
   try {
     const accountId = req.params.id;
 
-    // Chỉ lấy các cột cần thiết
+    // Lấy tất cả các vấn đề
     const issues = await Issue.findAll({
-      attributes: ["issue_id", "description", "location", "latitude", "longitude", "status"],
+      attributes: ["issue_id", "description", "location", "latitude", "longitude", "status", "report_date", "technician_id"],
     });
 
+    // Sử dụng Promise.all để thực hiện các truy vấn cho từng kỹ thuật viên
+    const issuesWithTech = await Promise.all(
+      issues.map(async (issue) => {
+        const tech = await Tech.findOne({
+          where: { technician_id: issue.technician_id },
+          attributes: ["name"],
+        });
+        return { ...issue.toJSON(), technician_name: tech ? tech.name : null }; // Kết hợp thông tin kỹ thuật viên vào đối tượng vấn đề
+      })
+    );
+
+    // Sắp xếp danh sách theo thứ tự trạng thái
+    const order = { "Pending": 0, "In Progress": 1, "Accepted": 2, "Resolved": 3 };
+    issuesWithTech.sort((a, b) => order[a.status] - order[b.status]);
+
+    // Render view với thông tin đã chuẩn bị
     res.render("home/pages/issue.pug", {
       title: "Report Issue Page",
       userId: accountId,
-      issue: issues,
+      issue: issuesWithTech, // Gửi danh sách vấn đề đã được sắp xếp
     });
   } catch (error) {
     console.error("Error fetching issues:", error);
-    res.status(500).send("Error fetching issues");
+    res.status(500).send("Something went wrong!"); // Xử lý lỗi
   }
 };
 
 
 module.exports.issueDetail = async (req, res) => {
   const { issueId } = req.params; // Lấy ID của sự cố từ params
-
   try {
     // Truy vấn cơ sở dữ liệu để lấy chi tiết sự cố
     const issue = await Issue.findOne({
       where: { issue_id: issueId },
     });
-
     if (!issue) {
       return res.status(404).json({ error: "Sự cố không tồn tại!" });
     }
-
     // Trả về thông tin sự cố
     res.json(issue);
   } catch (error) {
@@ -64,7 +78,6 @@ module.exports.reportIssue = (req, res) => {
 module.exports.reportIssuePost = async (req, res) => {
   const accountId = req.params.id;
   let userId;
-  // Get user_id
   try {
     // Tìm user bằng accountId
     const user = await User.findOne({
@@ -92,7 +105,7 @@ module.exports.reportIssuePost = async (req, res) => {
 
 module.exports.history = (req, res) => {
   const accountId = req.params.id;
-  res.render("home/pages/warehouse.pug", {
+  res.render("home/pages/history.pug", {
     title: "Warehouse Page",
     userId: accountId
   });
@@ -107,15 +120,6 @@ module.exports.evaluate = async (req, res) => {
   })
 };
 
-// const user = {
-//   name: "Huynh Dich",
-//   email: "dichhuynh54@gmail.com",
-//   password: "12344",
-//   role: "tech_elec",
-//   address: "Hanoi",
-//   avatar: "avatar.png",
-//   status: "active"
-// }
 module.exports.setAccount = async (req, res) => {
   const accountId = req.params.id;
 

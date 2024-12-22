@@ -11,9 +11,13 @@ block body
             th Mã nhiệm vụ
             th Mô tả
             th Vị trí
+            th Ảnh báo cáo
+            th Chi tiết báo cáo
             th Ngày hoàn thành
             th Ngày phản hồi
-            th Ảnh báo cáo
+            th Đánh giá của quản lý
+            th Đánh giá thời gian xử lý
+            th Chi tiết đánh giá
             th Hành động
         tbody
           each task in tasks
@@ -21,13 +25,26 @@ block body
               td #{task.issue_id}
               td #{task.description || 'Không có mô tả'}
               td #{task.location || 'Không có vị trí'}
-              td #{task.resolved_at || 'Không rõ'}
-              td #{task.response_date ? new Date(task.response_date).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) : 'Không rõ'}
               td
                 if task.resolved_image
-                  img.img-thumbnail(src=task.resolved_image, alt="Ảnh báo cáo", width="100")
+                  img.img-thumbnail(src=task.resolved_image, alt="Ảnh báo cáo", width="200px", height="200px")
                 else
                   span.text-secondary Không có ảnh
+              td #{task.report_description || 'Không có báo cáo'}
+              td #{task.resolved_at ? new Date(task.resolved_at).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) : 'Không rõ'}
+              td #{task.response_date ? new Date(task.response_date).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }) : 'Không rõ'}
+              td(style=`background-color: ${
+                task.quality_evaluation === 'Rất tốt' ? '#28a745' : 
+                task.quality_evaluation === 'Tốt' ? '#ffc107' : 
+                task.quality_evaluation === 'Trung bình' ? '#17a2b8' : 
+                task.quality_evaluation === 'Kém' ? '#dc3545' : 
+                'transparent'}; color: white;`) #{task.quality_evaluation || ''}
+              td(style=`background-color: ${
+                task.time_evaluation === 'Rất tốt' ? '#28a745' :  
+                task.time_evaluation === 'Đạt' ? '#17a2b8' : 
+                task.time_evaluation === 'Chậm trễ' ? '#dc3545' : 
+                'transparent'}; color: white;`) #{task.quality_evaluation || ''}
+              td #{task.admin_comment || ''}
               td
                 button.btn.btn-primary.btn-sm.mr-2(
                   data-toggle="modal"
@@ -48,14 +65,38 @@ block body
                 button.close(type="button", data-dismiss="modal", aria-label="Close")
                   span(aria-hidden="true") &times;
               div.modal-body
-                form(action=`/tasks/${task.issue_id}/edit`, method="POST", enctype="multipart/form-data")
+                form(action=`/tech/home/assignedTask/${task.issue_id}/report`, method="POST", enctype="multipart/form-data")
                   .form-group
-                    label(for="reportDescription") Nội dung báo cáo
-                    textarea.form-control#reportDescription(name="reportDescription", rows="3").required #{task.report_description}
+                    label(for="report_description") Nội dung báo cáo
+                    textarea.form-control#reportDescription(
+                      name="report_description",
+                      rows="3",
+                      required
+                    ) #{task.report_description || ''}
                   .form-group
-                    label(for="resolvedImage") Ảnh báo cáo mới (tùy chọn)
-                    input.form-control-file#resolvedImage(type="file" name="resolvedImage")
+                    label(for="resolved_image") Ảnh báo cáo hiện tại
+                    if task.resolved_image
+                      img.img-thumbnail(
+                        src=task.resolved_image,
+                        alt="Ảnh báo cáo hiện tại",
+                        width="200px",
+                        height="200px"
+                      )
+                    else
+                      span.text-secondary Không có ảnh báo cáo
+                  .form-group
+                    label(for="resolved_image") Ảnh báo cáo mới (tùy chọn)
+                    input.form-control-file#resolvedImage(type="file" name="resolved_image")
+                  .form-group
+                    label(for="resolved_at") Thời gian giải quyết
+                    input.form-control#resolvedAt(
+                      type="datetime-local",
+                      name="resolved_at",
+                      value=task.resolved_at ? new Date(task.resolved_at).toISOString().slice(0, -1) : '',
+                      required
+                    )
                   button.btn.btn-primary.btn-block(type="submit") Cập nhật báo cáo
+
 
     else
       .alert.alert-warning.text-center.mt-4 Không có công việc nào đã hoàn thành!

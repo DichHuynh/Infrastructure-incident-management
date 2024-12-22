@@ -68,19 +68,13 @@ const Issue = sequelize.define('Issue', {
     type: DataTypes.ENUM('Pending', 'In Progress', 'Resolved'),
     defaultValue: 'Pending',
   },
-  resolution_date: {
-    type: DataTypes.DATE,
-  },
-  notes: {
-    type: DataTypes.TEXT,
-  },
   latitude: {
     type: DataTypes.DOUBLE,
-    allowNull: false,
+    allowNull: true,
   },
   longitude: {
     type: DataTypes.DOUBLE,
-    allowNull: false,
+    allowNull: true,
   },
   report_description: {
     type: DataTypes.TEXT, // Đã thay đổi kiểu dữ liệu thành TEXT
@@ -97,6 +91,18 @@ const Issue = sequelize.define('Issue', {
   response_date: {
     type: DataTypes.DATE, // Đã thêm trường này với kiểu DATETIME
     defaultValue: DataTypes.NOW, // Mặc định là thời điểm hiện tại
+  },
+  time_evaluation: {
+    type: DataTypes.ENUM('Rất tốt', 'Đạt', 'Chậm trễ'),
+    allowNull: true,
+  },
+  quality_evaluation: {
+    type: DataTypes.ENUM('Rất tốt', 'Tốt', 'Trung bình', 'Kém'),
+    allowNull: true,
+  },
+  admin_comment: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
 }, {
   tableName: 'Issue',

@@ -1,11 +1,13 @@
 extends ../layouts/default.pug 
 
 block main 
-  h1 Thông tin kỹ thuật viên 
-  a(
-    href=`/admin/home/${userId}/createTech`
-    class="btn btn-outline-success"
-    ) + Tạo mới tài khoản kỹ thuật
+  .card-header(style="font-size: 20px; font-weight: bold; margin-bottom: 10px;") Thông tin kỹ thuật viên 
+  .card-header-btn
+      .col-4 
+        a(
+          href=`/user/home/${userId}/reportIssue`
+          class="btn btn-outline-success"
+        ) + Tạo mới tài khoản kỹ thuật
   .container.mt-4
     .row.g-3
       each user in listTech

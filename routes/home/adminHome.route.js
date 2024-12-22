@@ -13,10 +13,11 @@ cloudinary.config({
   api_secret: "itGMjSDdsvw1Wa_gNHkhAY_N6Yo"
 });
 router.post('/assign', controller.assignTech);
+
 // chú ý router chung cho các trang dạng /:id nên sẽ bị nhầm đường dẫn
 // giải pháp: đặt đường dẫn tĩnh lên trước.
 router.get('/techList', controller.fetchTech);
-
+router.post('/evaluate', controller.evaluate);
 
 router.get("/:id", controller.index);
 router.get("/:id/setAccount", controller.setAccount);
@@ -36,4 +37,6 @@ router.post("/:id/createTech",
   controller.createTechPost);
 
 router.get("/:id/manageIssue", controller.manageIssue);
+router.get("/:id/supervise", controller.supervise);
+router.get("/:id/:issueId", controller.fetchIssue);
 module.exports = router;
