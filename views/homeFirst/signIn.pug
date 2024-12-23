@@ -13,6 +13,12 @@ html(lang="vi")
         h2 HỆ THỐNG THÔNG TIN CƠ SỞ HẠ TẦNG
       .login-form
         h4 NHẬP THÔNG TIN CỦA BẠN
+        // Hiển thị thông báo lỗi từ flash
+        if messages.error
+          div.alert.alert-danger(role="alert" id="alert-message")
+            | #{messages.error}
+            button.close(type="button" aria-label="Close" onclick="closeAlert()")
+              span(aria-hidden="true") &times;
         form(
           action=`/signIn`
           method="post"

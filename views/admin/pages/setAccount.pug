@@ -3,7 +3,7 @@ block style
   link(rel='stylesheet', href='/home/css/setAccount.css')
 
 block main 
-  h1(class="mb-4") Chỉnh sửa thông tin tài khoản
+  .card-header(style="font-size: 20px; font-weight: bold; margin-bottom: 10px; text-align: center;") Thông tin tài khoản
   form(
     action=`/admin/home/${userId}/setAccount?_method=PUT`
     method="POST"

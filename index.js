@@ -1,5 +1,6 @@
 const express = require("express");
 // const mongoose = require("mongoose");
+const flash = require('express-flash');
 const session = require("express-session");
 const Sequelize = require("sequelize");
 const methodOverride = require('method-override');
@@ -51,6 +52,7 @@ app.use(session({
   cookie: { secure: false } // set `true` if using HTTPS
 }));
 app.use(express.static(`${__dirname}/public`));
+app.use(flash());
 
 route(app);
 

@@ -19,7 +19,7 @@ block main
             td
               img.img-thumbnail(
                 src=(user.Account.avatar && user.Account.avatar.trim() !== "") ? user.Account.avatar : "/home/images/avatar.png"
-                style="width: 100px;"
+                style="width: 150px; height: 100px;"
               )
             td #{user.name}
             td #{user.user_id}

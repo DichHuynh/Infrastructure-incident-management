@@ -15,3 +15,18 @@ buttonSignIn.addEventListener("click", ()=>{
     return;
   }
 });
+// Đóng thông báo khi nhấn nút "Close"
+function closeAlert() {
+  const alert = document.getElementById('alert-message');
+  if (alert) {
+    alert.style.display = 'none';
+  }
+}
+
+// Tự động đóng thông báo sau 3 giây
+setTimeout(() => {
+  const alert = document.getElementById('alert-message');
+  if (alert) {
+    alert.style.display = 'none';
+  }
+}, 3000);
