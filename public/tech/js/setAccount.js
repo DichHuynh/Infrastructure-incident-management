@@ -34,4 +34,3 @@ function validatePasswordChange() {
 
   return true; // Xác thực thành công
 }
-

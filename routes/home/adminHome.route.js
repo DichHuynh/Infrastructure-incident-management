@@ -21,6 +21,10 @@ router.post('/evaluate', controller.evaluate);
 
 router.get("/:id", controller.index);
 router.get("/:id/setAccount", controller.setAccount);
+router.put("/:id/setAccount", 
+  upload.single("avatar"),
+  middleware.uploadFile,
+  controller.setAccountPut);
 
 router.get("/:id/manageUserAccounts", controller.manageUserAccount);
 router.patch("/:id/change-status/:status/:userId", controller.changeStatus);

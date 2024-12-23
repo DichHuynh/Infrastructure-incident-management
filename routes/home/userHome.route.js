@@ -28,5 +28,9 @@ router.get("/:id/history", controller.history);
 router.get("/:id/evaluate", controller.evaluate);
 
 router.get("/:id/setAccount", controller.setAccount);
+router.put("/:id/setAccount", 
+  upload.single("avatar"),
+  middleware.uploadFile,
+  controller.setAccountPut);
 
 module.exports = router;

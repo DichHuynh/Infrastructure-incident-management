@@ -5,10 +5,22 @@ block style
 block main 
   h1(class="mb-4") Chỉnh sửa thông tin tài khoản
   form(
-    action=`/setAccount?_method=PUT`
+    action=`/tech/home/${userId}/setAccount?_method=PUT`
     method="POST"
     id="form-edit-account"
+    enctype="multipart/form-data"
+    onsubmit="return validatePasswordChange()"
+  )
+    input(
+      type="hidden"
+      id="stored-password"
+      value=tech.Account.password
     )
+    .d-flex.justify-content-center
+      img.card-img-top.img-fluid(
+        src=(tech.Account.avatar && tech.Account.avatar.trim() !== "") ? tech.Account.avatar : "/home/images/avatar.png"
+        style="height: 150px; width: 150px; object-fit: cover; border-radius: 50%;"
+      )
     div(class="form-group")
       label(for="name") Họ tên
       input(
@@ -42,7 +54,7 @@ block main
         type="password"
         class="form-control"
         id="new-password"
-        name="new-password"
+        name="new_password"
         placeholder="Nhập mật khẩu mới"
       )
     div(class="form-group")
@@ -55,7 +67,25 @@ block main
         placeholder="Nhập lại mật khẩu mới"
       )
       span(id="password-error" class="error-message")
-
+    div(class="form-group")
+      label(for="numberphone") Số điện thoại
+      input(
+        type="text"
+        class="form-control"
+        id="numberphone"
+        name="numberphone"
+        value=tech.numberphone 
+      )
+    div(class="form-group")
+      label(for="expertise") Chuyên môn
+      input(
+        type="text"
+        class="form-control"
+        id="expertise"
+        name="expertise"
+        value=tech.expertise
+        readonly 
+      )
     div(class="form-group")
       label(for="avatar") Avatar 
       input(

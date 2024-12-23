@@ -28,36 +28,25 @@ module.exports.setAccount = async (req, res) => {
   })
 };
 
-// module.exports.work = async (req, res) => {
-//   const accountId = req.params.id;
-//   try {
-//       // Tìm technician dựa trên account_id
-//       const technician = await Tech.findOne({
-//           where: { account_id: accountId }
-//       });
-
-//       if (!technician) {
-//           return res.render('error', { message: "Technician không tồn tại!" });
-//       }
-//       console.log(technician.technician_id);
-
-//       // Lấy danh sách nhiệm vụ được giao cho kỹ thuật viên
-//       const assignedTasks = await Issue.findAll({
-//           where: { technician_id: technician.technician_id },
-//           attributes: ['issue_id', 'description', 'location', 'status', 'report_date'] // Lấy các trường cần thiết
-//       });
-//       // Render trang với danh sách nhiệm vụ
-//       console.log(assignedTasks);
-//       res.render('tech/pages/assignedTask.pug', {
-//           tasks: assignedTasks,
-//           technicianName: technician.name,
-//           userId: accountId
-//       });
-//   } catch (error) {
-//       console.error("Error in assignedTask:", error.message);
-//       res.render('error', { message: "Lỗi server!" });
-//   }
-// };
+module.exports.setAccountPut = async (req, res) => {
+  const accountId = req.params.id;
+  console.log(req.body);
+  const { name, email, new_password, avatar, status, numberphone } = req.body;
+  const updateData = { email, status, name };
+  if (avatar) {
+    updateData.avatar = avatar;
+  }
+  if (new_password){
+    updateData.password = new_password;
+  }
+  const [updatedRows] = await Account.update(updateData, {
+    where: { account_id: accountId },
+  });
+  const [updatedUser] = await Tech.update({ name, numberphone }, {
+    where: { account_id: accountId },
+  });
+  res.redirect(`back`);
+}
 
 module.exports.assignedTask = async (req, res) => {
   const accountId = req.params.id;

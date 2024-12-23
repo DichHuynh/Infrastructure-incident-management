@@ -16,6 +16,10 @@ const middleware = require("../../middlewares/uploadImage.middleware.js");
 
 router.get("/:id", controller.index);
 router.get("/:id/setAccount", controller.setAccount);
+router.put("/:id/setAccount", 
+  upload.single("avatar"),
+  middleware.uploadFile,
+  controller.setAccountPut);
 
 router.get("/:id/work/assignedTask", controller.assignedTask);
 router.post("/assignedTask/:issue_id/update", controller.updateTask);

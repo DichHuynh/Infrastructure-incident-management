@@ -48,7 +48,6 @@ module.exports.issue = async (req, res) => {
   }
 };
 
-
 module.exports.issueDetail = async (req, res) => {
   const { issueId } = req.params; // Lấy ID của sự cố từ params
   try {
@@ -130,7 +129,7 @@ module.exports.setAccount = async (req, res) => {
       required: true // Tạo điều kiện bắt buộc phải có bản ghi trong Account
     }
   });
-  console.log(user);
+  console.log(user.Account.avatar);
   if (!user) {
     return res.status(404).send({ message: "User not found" });
   }
@@ -140,3 +139,22 @@ module.exports.setAccount = async (req, res) => {
     userId: accountId
   });
 };
+
+module.exports.setAccountPut = async (req, res) => {
+  const accountId = req.params.id;
+  const { name, email, new_password, avatar, status, address } = req.body;
+  const updateData = { email, status, name };
+  if (avatar) {
+    updateData.avatar = avatar;
+  }
+  if (new_password){
+    updateData.password = new_password;
+  }
+  const [updatedRows] = await Account.update(updateData, {
+    where: { account_id: accountId },
+  });
+  const [updatedUser] = await User.update({ name, address }, {
+    where: { account_id: accountId },
+  });
+  res.redirect(`back`);
+}

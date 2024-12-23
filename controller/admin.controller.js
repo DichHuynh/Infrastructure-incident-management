@@ -21,13 +21,31 @@ module.exports.setAccount = async (req, res) => {
       required: true
     }
   });
-  console.log(admin);
   res.render("admin/pages/setAccount.pug", {
     title: "Set Account",
     admin: admin,
     userId: accountId
   })
 };
+
+module.exports.setAccountPut = async (req, res) => {
+  const accountId = req.params.id;
+  const { name, email, new_password, avatar, status, numberphone } = req.body;
+  const updateData = { email, status, name };
+  if (avatar) {
+    updateData.avatar = avatar;
+  }
+  if (new_password){
+    updateData.password = new_password;
+  }
+  const [updatedRows] = await Account.update(updateData, {
+    where: { account_id: accountId },
+  });
+  const [updatedUser] = await Admin.update({ name, numberphone }, {
+    where: { account_id: accountId },
+  });
+  res.redirect(`back`);
+}
 
 module.exports.manageUserAccount = async (req, res) => {
   const accountId = req.params.id;
