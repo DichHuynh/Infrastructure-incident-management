@@ -22,7 +22,7 @@ module.exports.signUpPost = async (req, res) => {
     // Check if the email already exists
     const existingAccount = await Accounts.findOne({ where: { email } });
     if (existingAccount) {
-      return res.status(400).json({ message: "Email already in use" });
+      return res.status(400).json({ message: "Email đã tồn tại" });
     }
 
     // Create the new account
@@ -59,42 +59,45 @@ module.exports.signIn = (req, res) => {
 
 module.exports.signInPost = async (req, res) => {
   console.log(req.body);
-const { email, password } = req.body;
-try {
-  const account = await Accounts.findOne({ where: { email } }); 
+  const { email, password } = req.body;
+  try {
+    const account = await Accounts.findOne({ where: { email } });
 
-  if (!account) {
-    return res.status(400).send({ message: "Email không tồn tại" });
-  }
+    if (!account) {
+      req.flash('error', 'Email không tồn tại');
+      return res.redirect('back');
+    }
 
-  if (password !== account.password) {
-    return res.status(400).send({ message: "Sai mật khẩu" });
-  }
-  
-  // Chuyển hướng về trang chủ sau khi đăng nhập thành công
-  req.session.accountId = account.account_id; // Lưu ID người dùng vào session
-  console.log(req.session.accountId);
-  // res.redirect(`/home/${user.user_id}`);
-  if (account.status == "Inactive"){
-    return res.status(400).send({ message: "Tài khoản của bạn đã bị khóa"});
-  }
+    if (password !== account.password) {
+      req.flash('error', 'Sai mật khẩu');
+      return res.redirect('back');
+    }
 
-  switch (account.account_type) {
-    case 'Admin':
-      return res.redirect(`/admin/home/${account.account_id}`);
-    case 'User':
-      return res.redirect(`/user/home/${account.account_id}`);
-    case 'Technician':
-      return res.redirect(`/tech/home/${account.account_id}`);
-    default:
-      return res.status(400).send({ message: "Loại tài khoản không hợp lệ" });
-  }
+    if (account.status == "Inactive") {
+      req.flash('error', 'Tài khoản của bạn đã bị khóa');
+      return res.redirect('back');
+    }
 
-} catch (error) {
-  console.error(error);
-  return res.status(500).send({ message: "Lỗi server" });
-}
+    req.session.accountId = account.account_id;
+
+    switch (account.account_type) {
+      case 'Admin':
+        return res.redirect(`/admin/home/${account.account_id}`);
+      case 'User':
+        return res.redirect(`/user/home/${account.account_id}`);
+      case 'Technician':
+        return res.redirect(`/tech/home/${account.account_id}`);
+      default:
+        req.flash('error', 'Loại tài khoản không hợp lệ');
+        return res.redirect('back');
+    }
+  } catch (error) {
+    console.error(error);
+    req.flash('error', 'Lỗi server');
+    return res.redirect('back');
+  }
 };
+
 
 module.exports.validationPassword = async (req, res) => {
   try {

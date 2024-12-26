@@ -64,11 +64,26 @@ input[type="checkbox"] {
   margin-right: 5px;
 }
 
-.error-message {
+.alert-danger {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid red;
+  background-color: #ffe5e5;
+  border-radius: 5px;
+}
+
+.error {
   color: red;
-  font-size: 0.9em;
-  margin-top: 10px;
-  display: block;
+  list-style: none;
+  font-size: 14px;
+}
+
+.alert button.close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #721c24;
+  cursor: pointer;
 }
 
 button {
