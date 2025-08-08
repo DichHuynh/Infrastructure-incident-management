@@ -4,16 +4,23 @@ const flash = require('express-flash');
 const session = require("express-session");
 const Sequelize = require("sequelize");
 const methodOverride = require('method-override');
+require('dotenv').config();
 
-const sequelize = new Sequelize(
-  "infrastructure_management",
-  "root",
-  "",
-  {
-    host: "localhost",
-    dialect: "mysql",
-  }
-);
+// const sequelize = new Sequelize(
+//   "infrastructure_management",
+//   "root",
+//   "",
+//   {
+//     host: "localhost",
+//     dialect: "mysql",
+//   }
+// );
+
+// connect to MYSQL on clever cloud
+const sequelize = new Sequelize(process.env.Connection_URL, {
+  dialect: 'mysql',
+  logging: console.log,
+});
 
 sequelize.authenticate().then(() => {
   console.log("Database connected");

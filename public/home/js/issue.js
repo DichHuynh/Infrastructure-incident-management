@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const issue = await response.json();
 
-        // Kiểm tra xem dữ liệu có hợp lệ không
         if (!issue) {
           alert("Không có thông tin sự cố.");
           return;
